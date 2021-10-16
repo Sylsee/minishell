@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/10/14 11:18:38 by spoliart         ###   ########.fr        #
+#    Updated: 2021/10/16 06:11:50 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ _YELLOW=\e[33m
 ## COMPILATION ##
 
 CC=gcc
-CFLAGS+=-Wall -Wextra -Werror
-LDFLAGS+=-Llibft -lft
+CFLAGS+=-Wall -Wextra -Werror -g
+LDFLAGS+=-lreadline -Llibft -lft
 
 ## DELETE ##
 
@@ -39,7 +39,8 @@ I=includes/
 
 ## FILES ##
 
-SRCS=	main.c
+SRCS=	main.c \
+		echo.c
 
 ## COMPILED ##
 

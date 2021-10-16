@@ -1,23 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/16 05:44:51 by spoliart         ###   ########.fr       */
+/*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
+/*   Updated: 2021/10/16 09:06:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "../libft/includes/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+static void	print_tab(char **s)
+{
+	int	i;
 
-void	run_echo(char **s);
+	i = 0;
+	while (s[i])
+	{
+		ft_putstr_fd(s[i], 1);
+		i++;
+		if (s[i])
+			ft_putstr_fd(" ", 1);
+	}
+}
 
-#endif
+void	run_echo(char **arg)
+{
+	int	i;
+	int	param;
+
+	i = 0;
+	param = 0;
+	while (!ft_strcmp(arg[++i], "-n"))
+		param = 1;
+	if (param)
+		print_tab(&arg[i]);
+	else
+	{
+		print_tab(&arg[i]);
+		ft_putstr_fd("\n", 1);
+	}
+}
