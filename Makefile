@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/10/16 06:11:50 by spoliart         ###   ########.fr        #
+#    Updated: 2021/10/22 14:26:30 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,10 @@ I=includes/
 ## FILES ##
 
 SRCS=	main.c \
-		echo.c
+		alloc.c \
+		echo.c \
+		env.c \
+		error.c
 
 ## COMPILED ##
 
@@ -69,11 +72,11 @@ $O%.o:	$S%.c
 $(OBJS):	| $O
 
 $O:
-		mkdir -p $O
+		@mkdir -p $O
 
 clean:
 		@make -s clean -C libft
-		@$(RM) $(DIR_OBJS)
+		@$(RM) $O
 		@printf "$(_RED) '$O' has been deleted. $(_END)🗑️\n"
 
 fclean:	clean

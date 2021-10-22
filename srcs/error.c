@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/22 18:43:27 by spoliart         ###   ########.fr       */
+/*   Created: 2021/10/22 13:31:54 by spoliart          #+#    #+#             */
+/*   Updated: 2021/10/22 18:13:16 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "alloc.h"
-# include "builtin.h"
-# include "../libft/includes/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdint.h>
-
-typedef struct	s_env
+void	internal_error(char *s)
 {
-	t_area	area;
-}				t_env;
-
-/*			GLOBAL			*/
-extern t_env	*genv;
-/*			ERROR			*/
-void	internal_error(char *s);
-/*			UTILS			*/
-char	*get_env(char *s);
-
-#endif
+	ft_putstr_fd("minishell: ", 2);
+	ft_putendl_fd(s, 2);
+	free_area(&genv->area);
+	exit(EXIT_FAILURE);
+}

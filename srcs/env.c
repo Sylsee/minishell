@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/22 18:43:27 by spoliart         ###   ########.fr       */
+/*   Created: 2021/10/18 10:25:03 by spoliart          #+#    #+#             */
+/*   Updated: 2021/10/20 18:44:18 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "alloc.h"
-# include "builtin.h"
-# include "../libft/includes/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdint.h>
-
-typedef struct	s_env
+char	*get_env(char *s)
 {
-	t_area	area;
-}				t_env;
+	size_t		len_s;
+	extern char	**environ;
 
-/*			GLOBAL			*/
-extern t_env	*genv;
-/*			ERROR			*/
-void	internal_error(char *s);
-/*			UTILS			*/
-char	*get_env(char *s);
-
-#endif
+	if (!s || !*s)
+		return (NULL);
+	len_s = ft_strlen(s);
+	while (*environ && ft_strncmp(*environ, s, len_s))
+		environ++;
+	return (*environ);
+}
