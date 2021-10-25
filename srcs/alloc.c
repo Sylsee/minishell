@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 12:35:21 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/22 18:12:31 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/10/23 09:13:31 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	free_area(t_area *area)
 		free(freelist);
 		freelist = tmp;
 	}
+	area->freelist = NULL;
 }
