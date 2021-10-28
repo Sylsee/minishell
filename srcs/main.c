@@ -6,95 +6,59 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/25 11:59:27 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/10/28 22:54:17 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*g_env;
+t_shell	*g_shell;
 
 void	free_leaks(void) __attribute__((destructor));
 
 void	free_leaks(void)
 {
-	printf("salut\n");
-	fflush(stdout);
+	free_area(&g_shell->a);
+	free_area(NULL);
 }
 
-static char	*get_relative(char *cmd)
+void	init_env(char **envp)
 {
-	if (access(cmd, F_OK))
-		return (cmd);
-	return (NULL);
+	size_t	i;
+
+	init_area(NULL);
+	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), &g_shell->a);
+	if (!g_shell->env)
+		internal_error("Unable to allocate memory", EXIT_FAILURE);
+	i = -1;
+	while (envp[++i])
+		g_shell->env[i] = ft_strdup(envp[i]);
+	g_shell->env[i] = NULL;
 }
 
-static char	*get_absolute(char *cmd, char **env)
+int	main(int argc, char **argv, char **envp)
 {
-	bool	pass;
-	char	*tmp;
-	char	*path;
-
-	tmp = NULL;
-	pass = false;
-	while (*env)
-	{
-		path = ft_strjoin(*env, cmd);
-		if (pass == false && access(path, F_OK))
-		{
-			pass = true;
-			tmp = path;
-		}
-		if (access(path, R_OK | X_OK))
-			return (path);
-		free(path);
-		env++;
-	}
-	return (tmp);
-}
-
-char	*get_path(char *cmd)
-{
-	char		*path;
-	char		**env;
-
-	if (ft_strchr(cmd, '/') == NULL)
-		return (get_relative_path(cmd));
-	cmd = ft_strjoin("/", cmd);
-	env = ft_split(getenv("PATH"), ":");
-	path = get_absolute(cmd, env);
-	ft_free_tab(env);
-	free(cmd);
-	return (path);
-}
-
-int	main(int argc, char **argv)
-{
+	char	*ls;
 	char	*s;
+	t_shell	shell;
 
+	ft_memset(&shell, 0, sizeof(shell));
+	init_area(&shell.a);
+	g_shell = &shell;
+	init_env(envp);
 	while (true)
 	{
 		s = readline("$ ");
 		if (!s)
-			break;
+			break ;
+		ls = ft_getenv(s);
+		if (ls)
+			printf("%s\n", ls);
 		free(s);
 	}
-	rl_clear_history();
+	free(s);
 	(void)argc;
 	(void)argv;
 	exit(0);
 	return (0);
 }
-/*	int	*s;
-	t_env	env;
-
-	init_area(&env.area);
-	genv = &env;
-	s = alloc(sizeof(int) * 3, &genv->area);
-	s[0] = 1;
-	s[1] = 100;
-	s[2] = 200;
-	printf("s[0]: [%d]\ns[1]: [%d]\ns[2]: [%d]\n", s[0], s[1], s[2]);
-	free_one(s, &genv->area);
-		if (!ft_strncmp(s, "echo", 4))
-			run_echo(s);*/

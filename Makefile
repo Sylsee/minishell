@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/10/24 19:27:47 by spoliart         ###   ########.fr        #
+#    Updated: 2021/10/28 14:34:13 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ I=includes/
 ## FILES ##
 
 SRCS=	main.c \
-		alloc.c \
 		echo.c \
+		env.c \
 		error.c
 
 ## COMPILED ##
@@ -84,6 +84,9 @@ fclean:	clean
 		@printf "$(_RED) '$(NAME)' has been deleted. $(_END)🗑️\n"
 
 re:	fclean all
+
+valgrind: all
+		@valgrind --suppressions=ignoreliberror --leak-check=full --show-leak-kinds=all --track-origins=yes  ./minishell
 
 ## PHONY ##
 
