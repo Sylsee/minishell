@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/28 22:54:17 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/10/29 15:57:17 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_leaks(void)
 	free_area(NULL);
 }
 
-void	init_env(char **envp)
+static void	init_env(char **envp)
 {
 	size_t	i;
 
@@ -42,6 +42,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*s;
 	t_shell	shell;
 
+	(void)argc;
+	(void)argv;
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
 	g_shell = &shell;
@@ -57,8 +59,6 @@ int	main(int argc, char **argv, char **envp)
 		free(s);
 	}
 	free(s);
-	(void)argc;
-	(void)argv;
 	exit(0);
 	return (0);
 }
