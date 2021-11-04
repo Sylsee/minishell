@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/29 15:57:17 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:54:39 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,25 @@ static void	init_env(char **envp)
 	g_shell->env[i] = NULL;
 }
 
+static void	minishell(void)
+{
+	char	*s;
+
+	while (true)
+	{
+		s = readline("$ ");
+		if (!s)
+			break ;
+		// tokenizer();
+		// ast();
+		// exec();
+		free(s);
+	}
+	free(s);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	char	*ls;
-	char	*s;
 	t_shell	shell;
 
 	(void)argc;
@@ -48,17 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
-	while (true)
-	{
-		s = readline("$ ");
-		if (!s)
-			break ;
-		ls = ft_getenv(s);
-		if (ls)
-			printf("%s\n", ls);
-		free(s);
-	}
-	free(s);
+	minishell();
 	exit(0);
 	return (0);
 }

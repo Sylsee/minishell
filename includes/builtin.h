@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:54:49 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/22 13:55:19 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/03 18:53:46 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define BUILTIN_H
 
 void	run_echo(char **s);
+void	run_env(void);
 
 #endif
