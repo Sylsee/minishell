@@ -6,13 +6,14 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 15:22:03 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:33:23 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "ast.h"
 # include "builtin.h"
 # include "../libft/includes/libft.h"
 # include <readline/readline.h>

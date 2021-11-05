@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:24:13 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/27 15:24:25 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/05 18:22:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*get_absolute(char *cmd, char **env)
 		}
 		if (access(path, R_OK | X_OK))
 			return (path);
-		free(path);
+		free_one(path, NULL);
 		env++;
 	}
 	return (tmp);
@@ -48,12 +48,14 @@ char	*get_path(char *cmd)
 	char		*path;
 	char		**env;
 
-	if (ft_strchr(cmd, '/') == NULL)
+	if (ft_strncmp(cmd, "./", 2) == NULL)
 		return (get_relative_path(cmd));
+	else if (cmd[0] == '/')
+		return (ft_strdup(cmd));
 	cmd = ft_strjoin("/", cmd);
 	env = ft_split(getenv("PATH"), ":");
 	path = get_absolute(cmd, env);
 	ft_free_tab(env);
-	free(cmd);
+	free_one(cmd, NULL);
 	return (path);
 }
