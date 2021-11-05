@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/04 17:54:39 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:07:08 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	minishell(void)
 			break ;
 		// tokenizer();
 		// ast();
-		// exec();
+		exec();
 		free(s);
 	}
 	free(s);
@@ -63,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
+	init_signal();
 	minishell();
 	exit(0);
 	return (0);

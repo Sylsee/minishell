@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/10/29 15:56:52 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:22:03 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct s_shell
 ** Global variables
 */
 extern t_shell	*g_shell;
+
+typedef short	t_bool;
+
+enum {
+	false,
+	true
+};
 
 /*
 ** Error
