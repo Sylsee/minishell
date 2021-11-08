@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 15:07:08 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/05 16:59:43 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ static void	init_env(char **envp)
 static void	minishell(void)
 {
 	char	*s;
+	t_token	*tokens;
 
 	while (true)
 	{
 		s = readline("$ ");
 		if (!s)
 			break ;
-		// tokenizer();
-		// ast();
-		exec();
+	//	tokenizer(tokens);
+	//	exec();
 		free(s);
 	}
 	free(s);
@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
 	g_shell = &shell;
