@@ -6,14 +6,14 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 15:07:08 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/12 03:15:17 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_shell	*g_shell;
-
+/*
 void	free_leaks(void) __attribute__((destructor));
 
 void	free_leaks(void)
@@ -21,7 +21,7 @@ void	free_leaks(void)
 	free_area(&g_shell->a);
 	free_area(NULL);
 }
-
+*/
 static void	init_env(char **envp)
 {
 	size_t	i;
@@ -36,8 +36,20 @@ static void	init_env(char **envp)
 	g_shell->env[i] = NULL;
 }
 
+static t_node	ast(char *s)
+{
+	t_node	ast;
+
+	ast.type = CMD_NODE;
+	ast.content.cmd.argv = ft_split(s, " ");
+	ast.content.cmd.fd_in = STDIN_FILENO;
+	ast.content.cmd.fd_out = STDOUT_FILENO;
+	return (ast);
+}
+
 static void	minishell(void)
 {
+	t_node	tast;
 	char	*s;
 
 	while (true)
@@ -46,8 +58,9 @@ static void	minishell(void)
 		if (!s)
 			break ;
 		// tokenizer();
-		// ast();
-		exec();
+		tast = ast(s);
+		exec(&tast);
+		ft_free_tab(tast.content.cmd.argv, NULL);
 		free(s);
 	}
 	free(s);
@@ -63,7 +76,6 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
-	init_signal();
 	minishell();
 	exit(0);
 	return (0);
