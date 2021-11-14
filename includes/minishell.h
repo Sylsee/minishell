@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 16:55:17 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/14 08:21:44 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,24 @@ typedef struct s_shell
 extern t_shell	*g_shell;
 
 typedef short	t_bool;
+
+/*
+** Ast
+*/
+
+# include "ast.h"
+
+/*
+** Utils
+*/
+
+# include "../srcs/utils/utils.h"
+
+/*
+** Lexer
+*/
+
+# include "../srcs/lexer/lexer.h"
 
 /*
 ** Error

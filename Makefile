@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/10/28 14:34:13 by spoliart         ###   ########.fr        #
+#    Updated: 2021/11/14 11:23:40 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,24 @@ RM=rm -rf
 
 S=srcs/
 O=objs/
-I=includes/
+I=-I./includes/ -I./$Slexer/
 
 ## FILES ##
 
 SRCS=	main.c \
 		echo.c \
 		env.c \
-		error.c
+		error.c\
+		lexer/tokenization.c\
+		lexer/get_word_token.c\
+		lexer/get_char_type.c\
+		lexer/get_pipe_token.c\
+		lexer/get_redirection_token.c\
+		lexer/create_token.c\
+		lexer/token_add_back.c\
+		lexer/clear_tokens.c\
+		utils/ft_isspace.c\
+		utils/ft_strndup.c\
 
 ## COMPILED ##
 
@@ -61,17 +71,19 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 		@printf "\033[2K\r$(_GREEN) All files compiled into '$O'. $(_END)✅\n"
 		@make -s -C libft
-		@$(CC) $(CFLAGS) $^ -o $@ -I $I $(LDFLAGS)
+		@$(CC) $(CFLAGS) $^ -o $@ $I $(LDFLAGS)
 		@printf "$(_GREEN) Binary '$(NAME)' created. $(_END)✅\n"
 
 $O%.o:	$S%.c
 		@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-		@$(CC) $(CFLAGS) -I $I -c $< -o $@
+		@$(CC) $(CFLAGS) $I -c $< -o $@
 
 $(OBJS):	| $O
 
 $O:
 		@mkdir -p $O
+		@mkdir -p $O/lexer
+		@mkdir -p $O/utils
 
 clean:
 		@make -s clean -C libft

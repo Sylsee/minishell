@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 16:59:43 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/14 11:41:36 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,30 @@ static void	minishell(void)
 	char	*s;
 	t_token	*tokens;
 
+	tokens = NULL;
+#define DEBUG 0
+#if DEBUG == 0
 	while (true)
 	{
 		s = readline("$ ");
 		if (!s)
+		{
+			printf("ayaaaa\n");
 			break ;
-	//	tokenizer(tokens);
-	//	exec();
+		}
+		tokenization(s, &tokens);
+		clear_tokens(&tokens);
 		free(s);
 	}
 	free(s);
+#else
+		tokenization(" s s s s", &tokens);
+		clear_tokens(&tokens);
+		tokenization("s s s s s s s s s s s ", &tokens);
+		clear_tokens(&tokens);
+#endif
+		(void)s;
+
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -64,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
-	init_signal();
+//	init_signal();
 	minishell();
 	exit(0);
 	return (0);

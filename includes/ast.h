@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 15:19:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 15:27:34 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/14 11:41:47 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # define NOT_VALID_CHAR 0
 # define VALID_CHAR 1
-# define INIT_QUOTE 1
-# define CHECK_QUOTE 2
 # define PIPE_NODE 0
 # define CMD_NODE 1
 
@@ -65,7 +63,7 @@ enum	e_token_type
 	Word_token,
 	Pipe_token,
 	Iheredoc_token,
-	OHeredoc_token,
+	Oheredoc_token,
 	Iredir_token,
 	Oredir_token,
 	TOKEN_TYPE_LENGTH
