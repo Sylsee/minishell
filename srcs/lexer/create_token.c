@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 07:16:37 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/14 10:17:12 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:07:28 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token	*create_token(char	*data, enum e_token_type type)
 {
 	t_token	*token;
 
-	token = alloc(sizeof(t_token), &g_shell->a);
+	token = alloc(sizeof(*token), &g_shell->a);
 	token->data = data;
 	token->type = type;
 	token->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 10:46:32 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/14 11:41:37 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:17:00 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_token	*get_redirection_token(char **line)
 		else
 			token = create_token(ft_strdup(">"), Oredir_token);
 	}
-	if ((*line)[1] == '>' || (*line)[1] == '<')
+	if (((*line)[0] == '>' && (*line)[1] == '>')
+		|| ((*line)[0] == '<' && (*line)[1] == '<'))
 		(*line)++;
 	(*line)++;
 	return (token);

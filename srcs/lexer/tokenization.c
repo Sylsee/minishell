@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 17:00:25 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/14 11:41:40 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:16:45 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,11 @@ static t_token	*add_new_token(char	**line)
 
 t_bool	tokenization(char *line, t_token **tokens)
 {
-	int		i;
-
-	i = 0;
 	while (*line)
 	{
 		line = skip_space(line);
-		if (*line && !token_add_back(tokens, add_new_token(&line + i)))
+		if (*line && !token_add_back(tokens, add_new_token(&line)))
 			return (false);
 	}
-	t_token **copy;
-	copy = tokens;
-	while ((*tokens))
-	{
-		printf("token {\n\tdata: %s , type: %d\n}\n", (*tokens)->data, (*tokens)->type);
-		*tokens = (*tokens)->next;
-	}
-	tokens = copy;
 	return (true);
 }

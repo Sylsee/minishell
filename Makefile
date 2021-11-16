@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/16 11:00:05 by arguilla         ###   ########.fr        #
+#    Updated: 2021/11/16 11:25:43 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,7 @@ I		=	-I./includes
 
 # [ SOURCES ] #
 
-SRCS	=	main.c \
-			echo.c \
-			env.c \
-			error.c \
-			tokenization.c \
+LEXER	=	tokenization.c \
 			get_word_token.c \
 			get_char_type.c \
 			get_pipe_token.c \
@@ -55,8 +51,16 @@ SRCS	=	main.c \
 			create_token.c \
 			token_add_back.c \
 			clear_tokens.c \
-			ft_isspace.c \
+
+UTILS	=	ft_isspace.c \
 			ft_strndup.c \
+
+SRCS	=	main.c \
+			echo.c \
+			env.c \
+			error.c \
+			$(LEXER) \
+			$(UTILS)
 
 # [ OBJECTS ] #
 
@@ -96,7 +100,7 @@ fclean:		clean
 re:			fclean all
 
 valgrind: 	all
-			@$(VALGRIND) $(VFLAGS) $(NAME)
+			@$(VALGRIND) $(VFLAGS) ./$(NAME)
 
 # [ PHONY ] #
 

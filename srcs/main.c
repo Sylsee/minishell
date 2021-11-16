@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/14 11:41:36 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:16:42 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,28 @@ static void	minishell(void)
 	t_token	*tokens;
 
 	tokens = NULL;
-#define DEBUG 0
+#define DEBUG 10
 #if DEBUG == 0
 	while (true)
 	{
 		s = readline("$ ");
 		if (!s)
-		{
-			printf("ayaaaa\n");
 			break ;
-		}
-		tokenization(s, &tokens);
+		if (tokenization(s, &tokens))
+			// ast(tokens);
+		else
+			printf("ferme les parentheses fdp\n");
+			//set_exit_value();
 		clear_tokens(&tokens);
 		free(s);
 	}
 	free(s);
 #else
-		tokenization(" s s s s", &tokens);
-		clear_tokens(&tokens);
-		tokenization("s s s s s s s s s s s ", &tokens);
-		clear_tokens(&tokens);
+	//	tokenization("<>", &tokens);
+	//	clear_tokens(&tokens);
 #endif
 		(void)s;
-
+		(void)tokens;
 }
 
 int	main(int argc, char **argv, char **envp)

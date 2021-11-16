@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 08:16:55 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/14 08:47:00 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:20:50 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ char	*ft_strndup(const char *s, size_t n)
 	dup[i] = '\0';
 	return (dup);
 }
-

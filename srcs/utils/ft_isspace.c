@@ -6,11 +6,11 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 07:51:38 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/14 07:52:49 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:21:05 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int	ft_isspace(int c)
 {
