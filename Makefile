@@ -6,100 +6,98 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/14 11:23:40 by arguilla         ###   ########.fr        #
+#    Updated: 2021/11/16 11:00:05 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-###### VARIABLES ######
+# [ VARIABLES ] #
+SHELL	=	/bin/sh
+NAME	=	minishell
+RM		=	/bin/rm -rf
+MAKE	=	make
+LIBFT	=	libft
 
+# [ COLORS ] #
 
-## CUSTOMIZATION ##
+_END	=	\e[0m
+_RED	=	\e[31m
+_GREEN	=	\e[32m
+_YELLOW	=	\e[33m
 
-_END=\e[0m
+# [ COMPILATION VARIABLES ]#
 
-_RED=\e[31m
-_GREEN=\e[32m
-_YELLOW=\e[33m
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror -g
+LDFLAGS	=	-lreadline -Llibft -lft
 
-## COMPILATION ##
+# [ VALGRIND VARIABLES ] #
 
-CC=gcc
-CFLAGS+=-Wall -Wextra -Werror -g
-LDFLAGS+=-lreadline -Llibft -lft
+VALGRIND	=	/usr/bin/valgrind
+VFLAGS		=	--suppressions=ignoreliberror --leak-check=full --show-leak-kinds=all --track-origins=yes
 
-## DELETE ##
+# [ DIRECTORIES ] #
 
-RM=rm -rf
+S		=	srcs/
+O		=	objs/
+I		=	-I./includes
 
-## DIRECTORIES ##
+# [ SOURCES ] #
 
-S=srcs/
-O=objs/
-I=-I./includes/ -I./$Slexer/
+SRCS	=	main.c \
+			echo.c \
+			env.c \
+			error.c \
+			tokenization.c \
+			get_word_token.c \
+			get_char_type.c \
+			get_pipe_token.c \
+			get_redirection_token.c \
+			create_token.c \
+			token_add_back.c \
+			clear_tokens.c \
+			ft_isspace.c \
+			ft_strndup.c \
 
-## FILES ##
+# [ OBJECTS ] #
 
-SRCS=	main.c \
-		echo.c \
-		env.c \
-		error.c\
-		lexer/tokenization.c\
-		lexer/get_word_token.c\
-		lexer/get_char_type.c\
-		lexer/get_pipe_token.c\
-		lexer/get_redirection_token.c\
-		lexer/create_token.c\
-		lexer/token_add_back.c\
-		lexer/clear_tokens.c\
-		utils/ft_isspace.c\
-		utils/ft_strndup.c\
+OBJS	=	$(SRCS:%=$O%.o)
 
-## COMPILED ##
+# [ PATH ] #
 
-OBJS=$(SRCS:%.c=$O%.o)
+VPATH	=	includes:srcs:srcs/lexer:srcs/utils:objs
 
-NAME=minishell
+# [ RULES ] #
 
-# **************************************************************************** #
-
-###### RULES ######
-
-all:	$(NAME)
-
-## VARIABLES RULES ##
+all:		$(NAME)
 
 $(NAME):	$(OBJS)
-		@printf "\033[2K\r$(_GREEN) All files compiled into '$O'. $(_END)✅\n"
-		@make -s -C libft
-		@$(CC) $(CFLAGS) $^ -o $@ $I $(LDFLAGS)
-		@printf "$(_GREEN) Binary '$(NAME)' created. $(_END)✅\n"
-
-$O%.o:	$S%.c
-		@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-		@$(CC) $(CFLAGS) $I -c $< -o $@
-
-$(OBJS):	| $O
+			@printf "\033[2K\r$(_GREEN) All files compiled into '$O'. $(_END)✅\n"
+			@$(MAKE) -s -C $(LIBFT)
+			@$(CC) $(CFLAGS) $^ -o $@ $I $(LDFLAGS)
+			@printf "$(_GREEN) Binary '$(NAME)' created. $(_END)✅\n"
 
 $O:
-		@mkdir -p $O
-		@mkdir -p $O/lexer
-		@mkdir -p $O/utils
+			@mkdir -p $@
+
+$O%.o:		%	| $O
+			@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
+			@$(CC) $(CFLAGS) $I -c $< -o $@
 
 clean:
-		@make -s clean -C libft
-		@$(RM) $O
-		@printf "$(_RED) '$O' has been deleted. $(_END)🗑️\n"
+			@make -s clean -C $(LIBFT)
+			@$(RM) $O
+			@printf "$(_RED) '$O' has been deleted. $(_END)🗑️\n"
 
-fclean:	clean
-		@make -s fclean -C libft
-		@$(RM) $(NAME)
-		@printf "$(_RED) '$(NAME)' has been deleted. $(_END)🗑️\n"
+fclean:		clean
+			@make -s fclean -C $(LIBFT)
+			@$(RM) $(NAME)
+			@printf "$(_RED) '$(NAME)' has been deleted. $(_END)🗑️\n"
 
-re:	fclean all
+re:			fclean all
 
-valgrind: all
-		@valgrind --suppressions=ignoreliberror --leak-check=full --show-leak-kinds=all --track-origins=yes  ./minishell
+valgrind: 	all
+			@$(VALGRIND) $(VFLAGS) $(NAME)
 
-## PHONY ##
+# [ PHONY ] #
 
 .PHONY:	all clean fclean re
