@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/16 12:04:21 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:13:42 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ typedef short	t_bool;
 */
 
 # include "ast.h"
-
-/*
-** Utils
-*/
-
-# include "../srcs/utils/utils.h"
 
 /*
 ** Lexer

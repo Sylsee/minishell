@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/16 11:25:43 by arguilla         ###   ########.fr        #
+#    Updated: 2021/11/17 20:03:36 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,15 +52,11 @@ LEXER	=	tokenization.c \
 			token_add_back.c \
 			clear_tokens.c \
 
-UTILS	=	ft_isspace.c \
-			ft_strndup.c \
-
 SRCS	=	main.c \
 			echo.c \
 			env.c \
 			error.c \
 			$(LEXER) \
-			$(UTILS)
 
 # [ OBJECTS ] #
 
@@ -68,7 +64,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/utils:objs
+VPATH	=	includes:srcs:srcs/lexer
 
 # [ RULES ] #
 
