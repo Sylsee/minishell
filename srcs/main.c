@@ -6,14 +6,14 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/12 03:15:17 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/17 23:19:14 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_shell	*g_shell;
-/*
+
 void	free_leaks(void) __attribute__((destructor));
 
 void	free_leaks(void)
@@ -21,13 +21,13 @@ void	free_leaks(void)
 	free_area(&g_shell->a);
 	free_area(NULL);
 }
-*/
+
 static void	init_env(char **envp)
 {
 	size_t	i;
 
 	init_area(NULL);
-	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), &g_shell->a);
+	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), NULL);
 	if (!g_shell->env)
 		internal_error("Unable to allocate memory", EXIT_FAILURE);
 	i = -1;
@@ -57,13 +57,14 @@ static void	minishell(void)
 		s = readline("$ ");
 		if (!s)
 			break ;
-		// tokenizer();
+		/* tokenizer(); */
 		tast = ast(s);
 		exec(&tast);
 		ft_free_tab(tast.content.cmd.argv, NULL);
 		free(s);
 	}
 	free(s);
+	ft_free_tab(g_shell->env, NULL);
 }
 
 int	main(int argc, char **argv, char **envp)

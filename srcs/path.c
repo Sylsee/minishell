@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 15:24:13 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/12 03:28:09 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:16:40 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,18 @@ static char	*is_valid_path(char *path, char **tmp)
 
 static char	*get_absolute(char *cmd)
 {
+	int		i;
 	char	*tmp;
 	char	*path;
 	char	**env;
 
+	i = -1;
 	tmp = NULL;
 	cmd = ft_strjoin("/", cmd);
 	env = ft_split(getenv("PATH"), ":");
-	while (*env)
+	while (env[++i])
 	{
-		path = ft_strjoin(*env, cmd);
+		path = ft_strjoin(env[i], cmd);
 		path = is_valid_path(path, &tmp);
 		if (path)
 		{
@@ -51,14 +53,19 @@ static char	*get_absolute(char *cmd)
 			ft_free_tab(env, NULL);
 			return (path);
 		}
-		env++;
 	}
 	free_one(cmd, NULL);
 	ft_free_tab(env, NULL);
 	return (tmp);
 }
 
-/* Get complete path of the provide command */
+/*
+**	Get relative or absolute path
+**
+**	@param	cmd	=> The command to find the path
+**
+**	@return	the path
+*/
 
 char	*get_path(char *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/12 02:25:32 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/17 23:22:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "exec.h"
 # include "builtin.h"
 # include "../libft/includes/libft.h"
+# include "utils.h"
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -25,6 +26,10 @@
 # include <readline/history.h>
 
 # define ft_dprintf(X, str, ...) dprintf(X, str, __VA_ARGS__)
+
+/*
+**	Main structure
+*/
 
 typedef struct s_shell
 {
@@ -36,14 +41,13 @@ typedef struct s_shell
 /*
 ** Global variables
 */
+
 extern t_shell	*g_shell;
 
 /*
 ** Error
 */
-void	internal_error(char *s, int code);
 
-char	*ft_getenv(char *s);
-char	*get_path(char *cmd);
+void	internal_error(char *s, int code);
 
 #endif

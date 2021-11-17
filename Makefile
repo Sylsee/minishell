@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/12 03:11:38 by spoliart         ###   ########.fr        #
+#    Updated: 2021/11/17 15:52:03 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,13 @@ I=includes/
 
 SRCS=	main.c \
 		exec.c \
+		exec_cmd.c \
+		exec_cmd_utils.c \
+		exec_pipe.c \
 		path.c \
 		echo.c \
 		env.c \
+		utils.c \
 		error.c
 
 ## COMPILED ##

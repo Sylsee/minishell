@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 02:13:32 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 15:38:42 by spoliart         ###   ########.fr       */
+/*   Created: 2021/11/17 14:33:50 by spoliart          #+#    #+#             */
+/*   Updated: 2021/11/17 23:22:50 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# define INPUT 0
-# define OUTPUT 1
-
-void	exec(t_node *ast);
-void	exec_cmd(t_cmd *cmd);
-void	exec_pipe(t_content *pipe);
-
-int		manage_error(char *path, char *cmd, char *error, int ret);
-int		check_error(char *path, char *cmd);
-void	print_signal(int sig);
+int		is_dir(const char *path);
+int		ft_dup2(int ofd, int fd);
+void	restfd(int fd, int ofd);
+char	*ft_getenv(char *s);
+char	*get_path(char *cmd);
 
 #endif
