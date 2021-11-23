@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 10:25:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 23:19:58 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/23 02:22:00 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*ft_getenv(char *s)
 	len_s = ft_strlen(s);
 	while (*env)
 	{
-		if (ft_strncmp(*env, s, len_s) == 0 && (*env[len_s] == '='
-				|| *env[len_s] == '\0'))
+		if (ft_strncmp(*env, s, len_s) == 0
+			&& ((*env)[len_s] == '=' || (*env)[len_s] == '\0'))
 			return (&((*env)[len_s + 1]));
 		env++;
 	}

@@ -6,14 +6,14 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:23:55 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 14:42:04 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/23 02:22:23 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Parent process that executes the command on the right
+**	Child process that executes the command on the left
 **
 **	@param	node	=> The structure that stores the command or pipe to be executed
 **	@param	fd		=> The pipe file descriptor to link with parent process
@@ -40,18 +40,21 @@ static void	child(t_node *node, int fd[2], int savefd[2])
 
 static void	parent(t_node *node, int fd[2], int savefd[2])
 {
-	signal(SIGINT, SIG_IGN);
+//	signal(SIGINT, SIG_IGN);
 	ft_dup2(fd[INPUT], STDIN_FILENO);
 	close(fd[INPUT]);
 	close(fd[OUTPUT]);
 	exec(node);
 	wait(NULL);
-	restfd(savefd[INPUT], STDIN_FILENO);
-	restfd(savefd[OUTPUT], STDOUT_FILENO);
+	ft_dup2(savefd[INPUT], STDIN_FILENO);
+	ft_dup2(savefd[OUTPUT], STDOUT_FILENO);
+	close(savefd[INPUT]);
+	close(savefd[OUTPUT]);
 }
 
 /*
-**	Duplicate process to execute both commands at the same time
+**	Duplicate process to execute both commands at the same time and redirect
+**	output to input.
 **
 **	@param	pipe	=> The structure that stores the two commands to be executed
 */
