@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/17 20:03:36 by arguilla         ###   ########.fr        #
+#    Updated: 2021/11/27 08:38:12 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,27 @@ LEXER	=	tokenization.c \
 			token_add_back.c \
 			clear_tokens.c \
 
+PARSER	=	create_ast.c \
+			parse_tokens.c \
+			tokens_type.c \
+			create_cmd.c \
+			create_argv_cmd.c \
+			check_redirection.c \
+			parse_pipe.c \
+			check_pipe.c \
+			error_msg.c \
+			create_pipe.c \
+			ast_error.c \
+			free_ast.c \
+			skip_token.c \
+			print_ast.c \
+
 SRCS	=	main.c \
 			echo.c \
 			env.c \
 			error.c \
 			$(LEXER) \
+			$(PARSER) \
 
 # [ OBJECTS ] #
 
@@ -64,7 +80,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer
+VPATH	=	includes:srcs:srcs/lexer:srcs/parser
 
 # [ RULES ] #
 
