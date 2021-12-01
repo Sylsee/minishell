@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 15:25:35 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 15:51:35 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/11/23 22:53:49 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ int	is_dir(const char *path)
 **	@return	the new file descriptor
 */
 
-int	ft_dup2(int ofd, int fd)
+void	ft_dup2(int ofd, int fd)
 {
 	int	ret;
 
 	ret = dup2(ofd, fd);
 	if (ret == -1)
 		internal_error(strerror(errno), 1);
-	return (ret);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:28:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/21 01:24:18 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:01:37 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_signal(int sig)
 	[SIGSEGV] = "Segmentation fault\n",
 	[SIGBUS] = "Bus error\n",
 	[SIGABRT] = "Aborted\n",
-	[SIGQUIT] = "Quit\n",
+	[SIGQUIT] = "Quit (core dumped)\n",
 	[SIGTERM] = "Terminated\n",
 	[SIGTRAP] = "Trace/breakpoint trap\n",
 	[SIGPIPE] = ""
@@ -75,5 +75,5 @@ void	print_signal(int sig)
 
 	if (tab[sig])
 		ft_dprintf(STDERR_FILENO, "%s", tab[sig]);
-	g_shell->exit_value = sig + 128;
+	g_shell->exit_value = 128 + sig;
 }

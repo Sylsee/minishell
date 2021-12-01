@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/18 00:19:57 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/01 19:17:43 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,12 @@ I		=	-I./includes
 
 # [ SOURCES ] #
 
+SYSTEM	=	signals.c
+
+BUILTIN	=	builtins.c \
+			env.c \
+			echo.c
+
 EXEC	=	exec.c \
 			exec_cmd.c \
 			exec_pipe.c \
@@ -50,11 +56,11 @@ EXEC	=	exec.c \
 			path.c
 
 SRCS	=	main.c \
-			echo.c \
-			env.c \
 			error.c \
 			utils.c \
-			$(EXEC)
+			$(EXEC) \
+			$(BUILTIN) \
+			$(SYSTEM)
 
 # [ OBJECTS ] #
 
@@ -62,7 +68,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/exec
+VPATH	=	includes:srcs:srcs/lexer:srcs/exec:srcs/builtins:srcs/system
 
 # [ RULES ] #
 

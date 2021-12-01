@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:00:00 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/23 02:22:51 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:05:09 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	child(t_cmd *cmd)
 	int		ret;
 	char	*path;
 
+	signal_on_exec();
 	path = get_path(cmd->argv[0]);
 	ret = check_error(path, cmd->argv[0]);
 	if (ret != EXIT_SUCCESS)
@@ -43,44 +44,13 @@ static void	parent(pid_t pid)
 {
 	int	wstatus;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &wstatus, WUNTRACED | WCONTINUED);
 	if (WIFSIGNALED(wstatus))
 		print_signal(WTERMSIG(wstatus));
 	if (WIFEXITED(wstatus))
 		g_shell->exit_value = WEXITSTATUS(wstatus);
-}
-
-int	is_builtin(char *cmd)
-{
-	int			i;
-	const char	*builtin_cmd[8] = {
-	[0] = "echo",
-	[1] = "cd",
-	[2] = "pwd",
-	[3] = "export",
-	[4] = "unset",
-	[5] = "env",
-	[6] = "exit",
-	[7] = NULL
-	};
-
-	i = 0;
-	while (builtin_cmd[i] && !ft_strequ(builtin_cmd[i], cmd))
-		i++;
-	if (builtin_cmd[i])
-		return (ft_strequ(builtin_cmd[i], cmd));
-	return (0);
-}
-
-void	run_builtin(t_cmd *cmd)
-{
-	if (ft_strequ(cmd->argv[0], "env"))
-	{
-		if (cmd->argv[1])
-			printf("%s \n", ft_getenv(cmd->argv[1]));
-		else
-			run_env();
-	}
 }
 
 /*
@@ -94,16 +64,20 @@ void	exec_cmd(t_cmd *cmd)
 {
 	pid_t	pid;
 
+	ft_dup2(STDIN_FILENO, cmd->fd_in);
+	ft_dup2(STDOUT_FILENO, cmd->fd_out);
 	if (is_builtin(cmd->argv[0]))
 		run_builtin(cmd);
 	else
 	{
 		pid = fork();
 		if (pid == -1)
-			exit(EXIT_FAILURE);
-		if (pid == 0)
+			internal_error("Fork failed", EXIT_FAILURE);
+		else if (pid == 0)
 			child(cmd);
 		else
 			parent(pid);
 	}
+	restfd(cmd->fd_in, STDIN_FILENO);
+	restfd(cmd->fd_out, STDOUT_FILENO);
 }

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/23 02:21:21 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:06:19 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,62 @@ static t_node	ast(char *s, t_area test)
 	return (ast);
 }
 
+char	*rl_gets(void)
+{
+	static char	*rl_line = NULL;
+
+	if (rl_line)
+	{
+		free(rl_line);
+		rl_line = NULL;
+	}
+	rl_line = readline("$ ");
+	if (rl_line && *rl_line)
+		add_history(rl_line);
+	else if (!rl_line)
+		write(STDOUT_FILENO, "exit\n", 6);
+	return (rl_line);
+}
+
 static void	minishell(void)
 {
 	t_node	tast;
-	char	*s;
 	t_area	test;
+	char	*rl_line;
 
 	init_area(&test);
 	while (true)
 	{
-		s = readline("$ ");
-		//if (!s)
-		//	break ;
-		/* tokenizer(); */
-		if (s)
+		signal_on_input();
+		rl_line = rl_gets();
+		if (!rl_line)
+			break ;
+		/* token = tokenizer(line); */
+		if (*rl_line)
 		{
-			tast = ast(s, test);
+			tast = ast(rl_line, test);
 			exec(&tast);
 		}
-		free(s);
 	}
-	free(s);
-	ft_free_tab(g_shell->env, NULL);
+	free(rl_line);
+}
+
+static void	inline_mode(void)
+{
+	t_node	tast;
+	char	*line;
+	t_area test;
+
+	init_area(&test);
+	while (get_next_line(STDIN_FILENO, &line) > 0)
+	{
+		if (!line)
+			break ;
+		/* token = tokenizer(line); */
+		tast = ast(line, test);
+		exec(&tast);
+		free(line);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -130,7 +164,11 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
-	minishell();
+	if (isatty(STDIN_FILENO) == 0)
+		inline_mode();
+	else
+		minishell();
+	ft_free_tab(g_shell->env, NULL);
 	exit(0);
 	return (0);
 }

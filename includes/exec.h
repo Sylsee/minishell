@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 02:13:32 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 15:38:42 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:10:15 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ void	exec_pipe(t_content *pipe);
 int		manage_error(char *path, char *cmd, char *error, int ret);
 int		check_error(char *path, char *cmd);
 void	print_signal(int sig);
+
+int		is_builtin(char *cmd);
+void	run_builtin(t_cmd *cmd);
 
 #endif
