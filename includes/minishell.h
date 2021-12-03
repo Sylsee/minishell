@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/01 19:08:18 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 03:02:04 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ extern t_shell	*g_shell;
 */
 
 void	internal_error(char *s, int code);
+
+# include "test.h"
 
 #endif
