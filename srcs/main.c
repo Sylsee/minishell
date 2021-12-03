@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 02:50:09 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 02:58:49 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,74 +21,6 @@ void	free_leaks(void)
 	free_area(&g_shell->a);
 	free_area(NULL);
 }
-
-/******************************************************************************/
-/******************* TO BE DELETED WHEN PARSING IS FINISHED *******************/
-/******************************************************************************/
-
-static char	**until(char **args, char *c, t_area test)
-{
-	char	**ret;
-	int		i;
-
-	i = -1;
-	ret = alloc(sizeof(char *) * 5, &test);
-	while (args[++i] && ft_strcmp(args[i], c))
-		ret[i] = strdup(args[i]);
-	ret[i] = NULL;
-	return (ret);
-}
-
-static char	**after(char **args, char *c, t_area test)
-{
-	char	**ret;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	ret = alloc(sizeof(char *) * 5, &test);
-	while (args[i] && ft_strcmp(args[i], c))
-		i++;
-	while (args[++i])
-		ret[j++] = strdup(args[i]);
-	ret[j] = NULL;
-	return (ret);
-}
-
-static t_node	ast(char *s, t_area test)
-{
-	t_node	ast;
-	char	**args;
-
-	if (ft_strchr(s, '|'))
-	{
-		args = ft_split(s, " ");
-		ast.type = PIPE_NODE;
-		ast.content.left = alloc(sizeof(t_node), &test);
-		ast.content.right = alloc(sizeof(t_node), &test);
-		ast.content.left->type = CMD_NODE;
-		ast.content.left->content.cmd.argv = until(args, "|", test);
-		ast.content.left->content.cmd.fd_in = STDIN_FILENO;
-		ast.content.left->content.cmd.fd_out = STDOUT_FILENO;
-		ast.content.right->type = CMD_NODE;
-		ast.content.right->content.cmd.argv = after(args, "|", test);
-		ast.content.right->content.cmd.fd_in = STDIN_FILENO;
-		ast.content.right->content.cmd.fd_out = STDOUT_FILENO;
-	}
-	else
-	{
-		ast.type = CMD_NODE;
-		ast.content.cmd.argv = ft_split(s, " ");
-		ast.content.cmd.fd_in = STDIN_FILENO;
-		ast.content.cmd.fd_out = STDOUT_FILENO;
-	}
-	return (ast);
-}
-
-/******************************************************************************/
-/******************************************************************************/
-/******************************************************************************/
 
 char	*rl_gets(void)
 {
@@ -109,8 +41,8 @@ char	*rl_gets(void)
 
 static void	minishell(void)
 {
-	t_node _ast;
-	t_area test;
+	t_node	_ast;
+	t_area	test;
 	char	*rl_line;
 
 	init_area(&test);
@@ -134,7 +66,7 @@ static void	inline_mode(void)
 {
 	char	*line;
 	t_node	_ast;
-	t_area test;
+	t_area	test;
 
 	init_area(&test);
 	while (get_next_line(STDIN_FILENO, &line) > 0)

@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/03 02:36:53 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/03 02:56:46 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ I		=	-I./includes
 
 # [ SOURCES ] #
 
+TODELETE=	test.c
+
 SYSTEM	=	signals.c \
 			init_env.c
 
@@ -61,7 +63,8 @@ SRCS	=	main.c \
 			utils.c \
 			$(EXEC) \
 			$(BUILTIN) \
-			$(SYSTEM)
+			$(SYSTEM) \
+			$(TODELETE)
 
 # [ OBJECTS ] #
 
