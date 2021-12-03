@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/01 19:06:19 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 02:50:09 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,9 @@ void	free_leaks(void)
 	free_area(NULL);
 }
 
-static void	init_env(char **envp)
-{
-	size_t	i;
-
-	init_area(NULL);
-	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), NULL);
-	if (!g_shell->env)
-		internal_error("Unable to allocate memory", EXIT_FAILURE);
-	i = -1;
-	while (envp[++i])
-		g_shell->env[i] = ft_strdup(envp[i]);
-	g_shell->env[i] = NULL;
-}
+/******************************************************************************/
+/******************* TO BE DELETED WHEN PARSING IS FINISHED *******************/
+/******************************************************************************/
 
 static char	**until(char **args, char *c, t_area test)
 {
@@ -96,6 +86,10 @@ static t_node	ast(char *s, t_area test)
 	return (ast);
 }
 
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
 char	*rl_gets(void)
 {
 	static char	*rl_line = NULL;
@@ -109,14 +103,14 @@ char	*rl_gets(void)
 	if (rl_line && *rl_line)
 		add_history(rl_line);
 	else if (!rl_line)
-		write(STDOUT_FILENO, "exit\n", 6);
+		write(STDOUT_FILENO, "exit\n", 5);
 	return (rl_line);
 }
 
 static void	minishell(void)
 {
-	t_node	tast;
-	t_area	test;
+	t_node _ast;
+	t_area test;
 	char	*rl_line;
 
 	init_area(&test);
@@ -126,11 +120,11 @@ static void	minishell(void)
 		rl_line = rl_gets();
 		if (!rl_line)
 			break ;
-		/* token = tokenizer(line); */
 		if (*rl_line)
 		{
-			tast = ast(rl_line, test);
-			exec(&tast);
+			/* token = tokenizer(line); */
+			_ast = ast(rl_line, test);
+			exec(&_ast);
 		}
 	}
 	free(rl_line);
@@ -138,8 +132,8 @@ static void	minishell(void)
 
 static void	inline_mode(void)
 {
-	t_node	tast;
 	char	*line;
+	t_node	_ast;
 	t_area test;
 
 	init_area(&test);
@@ -148,8 +142,8 @@ static void	inline_mode(void)
 		if (!line)
 			break ;
 		/* token = tokenizer(line); */
-		tast = ast(line, test);
-		exec(&tast);
+		_ast = ast(line, test);
+		exec(&_ast);
 		free(line);
 	}
 }

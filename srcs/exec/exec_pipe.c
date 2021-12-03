@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:23:55 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/23 02:22:23 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 01:09:56 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	child(t_node *node, int fd[2], int savefd[2])
 
 static void	parent(t_node *node, int fd[2], int savefd[2])
 {
-//	signal(SIGINT, SIG_IGN);
 	ft_dup2(fd[INPUT], STDIN_FILENO);
 	close(fd[INPUT]);
 	close(fd[OUTPUT]);

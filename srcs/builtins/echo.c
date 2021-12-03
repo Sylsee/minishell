@@ -6,11 +6,18 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/29 01:52:55 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 01:17:44 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Print an array of string with '\n' if necessary
+**
+**	@param	s				=>	The array of strings
+**	@param	display_return	=>	True if it's needed to display '\n' else false
+*/
 
 static void	print_tab(char **s, bool display_return)
 {
@@ -33,6 +40,12 @@ static void	print_tab(char **s, bool display_return)
 	if (display_return == true)
 		write(1, "\n", 1);
 }
+
+/*
+**	Reproduction of echo command with '-n' argument available
+**
+**	@param	args	=>	The arguments to print
+*/
 
 void	run_echo(char **args)
 {

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:49:58 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/01 19:03:50 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 01:35:14 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,19 @@ static void	interrupt_process(int signum)
 	write(1, "\n", 1);
 }
 
+/*
+**	Sets the signals when the shell execute a command
+*/
+
 void	signal_on_exec(void)
 {
 	signal(SIGINT, &interrupt_process);
 	signal(SIGQUIT, SIG_DFL);
 }
+
+/*
+**	Sets the signals when the shell waits for a command
+*/
 
 void	signal_on_input(void)
 {

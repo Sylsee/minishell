@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/01 19:17:43 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/03 02:36:53 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ I		=	-I./includes
 
 # [ SOURCES ] #
 
-SYSTEM	=	signals.c
+SYSTEM	=	signals.c \
+			init_env.c
 
 BUILTIN	=	builtins.c \
 			env.c \
