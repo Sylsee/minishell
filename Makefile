@@ -6,88 +6,106 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/10/28 14:34:13 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/03 02:56:46 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-###### VARIABLES ######
+# [ VARIABLES ] #
+SHELL	=	/bin/sh
+NAME	=	minishell
+RM		=	/bin/rm -rf
+MAKE	=	make
+LIBFT	=	libft
 
+# [ COLORS ] #
 
-## CUSTOMIZATION ##
+_END	=	\e[0m
+_RED	=	\e[31m
+_GREEN	=	\e[32m
+_YELLOW	=	\e[33m
 
-_END=\e[0m
+# [ COMPILATION VARIABLES ]#
 
-_RED=\e[31m
-_GREEN=\e[32m
-_YELLOW=\e[33m
+CC		=	gcc
+CFLAGS	=	-Wall -Wextra -Werror -g
+LDFLAGS	=	-lreadline -Llibft -lft
 
-## COMPILATION ##
+# [ VALGRIND VARIABLES ] #
 
-CC=gcc
-CFLAGS+=-Wall -Wextra -Werror -g
-LDFLAGS+=-lreadline -Llibft -lft
+VALGRIND	=	/usr/bin/valgrind
+VFLAGS		=	--suppressions=ignoreliberror --leak-check=full --show-leak-kinds=all --track-origins=yes
 
-## DELETE ##
+# [ DIRECTORIES ] #
 
-RM=rm -rf
+S		=	srcs/
+O		=	objs/
+I		=	-I./includes
 
-## DIRECTORIES ##
+# [ SOURCES ] #
 
-S=srcs/
-O=objs/
-I=includes/
+TODELETE=	test.c
 
-## FILES ##
+SYSTEM	=	signals.c \
+			init_env.c
 
-SRCS=	main.c \
-		echo.c \
-		env.c \
-		error.c
+BUILTIN	=	builtins.c \
+			env.c \
+			echo.c
 
-## COMPILED ##
+EXEC	=	exec.c \
+			exec_cmd.c \
+			exec_pipe.c \
+			exec_utils.c \
+			path.c
 
-OBJS=$(SRCS:%.c=$O%.o)
+SRCS	=	main.c \
+			error.c \
+			utils.c \
+			$(EXEC) \
+			$(BUILTIN) \
+			$(SYSTEM) \
+			$(TODELETE)
 
-NAME=minishell
+# [ OBJECTS ] #
 
-# **************************************************************************** #
+OBJS	=	$(SRCS:%=$O%.o)
 
-###### RULES ######
+# [ PATH ] #
 
-all:	$(NAME)
+VPATH	=	includes:srcs:srcs/lexer:srcs/exec:srcs/builtins:srcs/system
 
-## VARIABLES RULES ##
+# [ RULES ] #
+
+all:		$(NAME)
 
 $(NAME):	$(OBJS)
-		@printf "\033[2K\r$(_GREEN) All files compiled into '$O'. $(_END)✅\n"
-		@make -s -C libft
-		@$(CC) $(CFLAGS) $^ -o $@ -I $I $(LDFLAGS)
-		@printf "$(_GREEN) Binary '$(NAME)' created. $(_END)✅\n"
-
-$O%.o:	$S%.c
-		@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-		@$(CC) $(CFLAGS) -I $I -c $< -o $@
-
-$(OBJS):	| $O
+			@printf "\033[2K\r$(_GREEN) All files compiled into '$O'. $(_END)✅\n"
+			@$(MAKE) -s -C $(LIBFT)
+			@$(CC) $(CFLAGS) $^ -o $@ $I $(LDFLAGS)
+			@printf "$(_GREEN) Binary '$(NAME)' created. $(_END)✅\n"
 
 $O:
-		@mkdir -p $O
+			@mkdir -p $@
+
+$O%.o:		%	| $O
+			@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
+			@$(CC) $(CFLAGS) $I -c $< -o $@
 
 clean:
-		@make -s clean -C libft
-		@$(RM) $O
-		@printf "$(_RED) '$O' has been deleted. $(_END)🗑️\n"
+			@make -s clean -C $(LIBFT)
+			@$(RM) $O
+			@printf "$(_RED) '$O' has been deleted. $(_END)🗑️\n"
 
-fclean:	clean
-		@make -s fclean -C libft
-		@$(RM) $(NAME)
-		@printf "$(_RED) '$(NAME)' has been deleted. $(_END)🗑️\n"
+fclean:		clean
+			@make -s fclean -C $(LIBFT)
+			@$(RM) $(NAME)
+			@printf "$(_RED) '$(NAME)' has been deleted. $(_END)🗑️\n"
 
-re:	fclean all
+re:			fclean all
 
-valgrind: all
-		@valgrind --suppressions=ignoreliberror --leak-check=full --show-leak-kinds=all --track-origins=yes  ./minishell
+valgrind: 	all
+			@$(VALGRIND) $(VFLAGS) ./$(NAME)
 
-## PHONY ##
+# [ PHONY ] #
 
 .PHONY:	all clean fclean re

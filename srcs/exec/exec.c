@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 13:31:54 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:12:40 by spoliart         ###   ########.fr       */
+/*   Created: 2021/11/05 15:30:46 by spoliart          #+#    #+#             */
+/*   Updated: 2021/11/23 22:08:10 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Error function who print the error and exit the program
+**	The main function of execution
+**	Check if it's a pipe or a simple command to execute it recursively
 **
-**	@param	s		=>	The error string
-**	@param	code	=>	The value for exiting the program
+**	@param	ast	=> the ast where pipes and command are store
 */
 
-void	internal_error(char *s, int code)
+void	exec(t_node *ast)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(s, 2);
-	exit(code);
+	if (ast->type == CMD_NODE)
+		exec_cmd(&ast->content.cmd);
+	else if (ast->type == PIPE_NODE)
+		exec_pipe(&ast->content);
 }

@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 13:31:54 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:12:40 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/03 01:03:27 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/03 01:32:16 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Error function who print the error and exit the program
+**	Initialize the environment variable
 **
-**	@param	s		=>	The error string
-**	@param	code	=>	The value for exiting the program
+**	@param	envp	=>	The environment variable supplied by the system
 */
 
-void	internal_error(char *s, int code)
+void	init_env(char **envp)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(s, 2);
-	exit(code);
+	size_t	i;
+
+	init_area(NULL);
+	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), NULL);
+	if (!g_shell->env)
+		internal_error("Unable to allocate memory", EXIT_FAILURE);
+	i = -1;
+	while (envp[++i])
+		g_shell->env[i] = ft_strdup(envp[i]);
+	g_shell->env[i] = NULL;
 }

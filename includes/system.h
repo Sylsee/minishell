@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   system.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 13:31:54 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:12:40 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/01 19:07:11 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/03 01:03:03 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SYSTEM_H
+# define SYSTEM_H
 
-/*
-**	Error function who print the error and exit the program
-**
-**	@param	s		=>	The error string
-**	@param	code	=>	The value for exiting the program
-*/
+void	signal_on_exec(void);
+void	signal_on_input(void);
+void	init_env(char **envp);
 
-void	internal_error(char *s, int code)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putendl_fd(s, 2);
-	exit(code);
-}
+#endif

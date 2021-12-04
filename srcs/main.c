@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/05 15:07:08 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 02:58:49 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,62 @@ void	free_leaks(void)
 	free_area(NULL);
 }
 
-static void	init_env(char **envp)
+char	*rl_gets(void)
 {
-	size_t	i;
+	static char	*rl_line = NULL;
 
-	init_area(NULL);
-	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), &g_shell->a);
-	if (!g_shell->env)
-		internal_error("Unable to allocate memory", EXIT_FAILURE);
-	i = -1;
-	while (envp[++i])
-		g_shell->env[i] = ft_strdup(envp[i]);
-	g_shell->env[i] = NULL;
+	if (rl_line)
+	{
+		free(rl_line);
+		rl_line = NULL;
+	}
+	rl_line = readline("$ ");
+	if (rl_line && *rl_line)
+		add_history(rl_line);
+	else if (!rl_line)
+		write(STDOUT_FILENO, "exit\n", 5);
+	return (rl_line);
 }
 
 static void	minishell(void)
 {
-	char	*s;
+	t_node	_ast;
+	t_area	test;
+	char	*rl_line;
 
+	init_area(&test);
 	while (true)
 	{
-		s = readline("$ ");
-		if (!s)
+		signal_on_input();
+		rl_line = rl_gets();
+		if (!rl_line)
 			break ;
-		// tokenizer();
-		// ast();
-		exec();
-		free(s);
+		if (*rl_line)
+		{
+			/* token = tokenizer(line); */
+			_ast = ast(rl_line, test);
+			exec(&_ast);
+		}
 	}
-	free(s);
+	free(rl_line);
+}
+
+static void	inline_mode(void)
+{
+	char	*line;
+	t_node	_ast;
+	t_area	test;
+
+	init_area(&test);
+	while (get_next_line(STDIN_FILENO, &line) > 0)
+	{
+		if (!line)
+			break ;
+		/* token = tokenizer(line); */
+		_ast = ast(line, test);
+		exec(&_ast);
+		free(line);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -63,8 +90,11 @@ int	main(int argc, char **argv, char **envp)
 	init_area(&shell.a);
 	g_shell = &shell;
 	init_env(envp);
-	init_signal();
-	minishell();
+	if (isatty(STDIN_FILENO) == 0)
+		inline_mode();
+	else
+		minishell();
+	ft_free_tab(g_shell->env, NULL);
 	exit(0);
 	return (0);
 }
