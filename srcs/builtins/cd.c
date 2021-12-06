@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 19:07:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:31:02 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/05 15:45:22 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/06 20:01:51 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include "minishell.h"
 
-/* *** signal *** */
-void	signal_on_exec(void);
-void	signal_on_input(void);
-
-/* *** env *** */
-void	init_env(char **envp);
-
-#endif
+int	run_cd(int argc, char **argv)
+{
+	(void)argv;
+	if (argc > 2)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
+}

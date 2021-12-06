@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:28:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/01 19:01:37 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:08:13 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_signal(int sig)
 {
 	const char	*tab[32] = {
 	[SIGINT] = "\n",
-	[SIGSEGV] = "Segmentation fault\n",
+	[SIGSEGV] = "Segmentation fault (core dumped)\n",
 	[SIGBUS] = "Bus error\n",
 	[SIGABRT] = "Aborted\n",
 	[SIGQUIT] = "Quit (core dumped)\n",
@@ -75,5 +75,5 @@ void	print_signal(int sig)
 
 	if (tab[sig])
 		ft_dprintf(STDERR_FILENO, "%s", tab[sig]);
-	g_shell->exit_value = 128 + sig;
+	g_shell->exit_code = 128 + sig;
 }

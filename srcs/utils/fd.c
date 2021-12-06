@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 15:25:35 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/23 22:53:49 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/06 19:13:06 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	is_dir(const char *path)
 **
 **	@param	ofd	=>	the old file descriptor
 **	@param	fd	=>	the new file descriptor
-**	
-**	@return	the new file descriptor
 */
 
 void	ft_dup2(int ofd, int fd)

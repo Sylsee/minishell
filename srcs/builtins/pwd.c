@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 19:07:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:31:02 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/05 23:37:32 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/06 20:21:17 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include "minishell.h"
 
-/* *** signal *** */
-void	signal_on_exec(void);
-void	signal_on_input(void);
+int	run_pwd(int argc, char **argv)
+{
+	char	*dir;
 
-/* *** env *** */
-void	init_env(char **envp);
-
-#endif
+	(void)argc;
+	(void)argv;
+	dir = getcwd((char *) NULL, 0);
+	if (dir == NULL)
+	{
+		perror("getcwd");
+		return (EXIT_FAILURE);
+	}
+	ft_putendl_fd(dir, STDOUT_FILENO);
+	free(dir);
+	return (EXIT_SUCCESS);
+}

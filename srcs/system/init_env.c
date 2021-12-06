@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 01:03:27 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:32:16 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/06 21:02:12 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	init_env(char **envp)
 {
 	size_t	i;
 
-	init_area(NULL);
-	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), NULL);
-	if (!g_shell->env)
-		internal_error("Unable to allocate memory", EXIT_FAILURE);
-	i = -1;
-	while (envp[++i])
-		g_shell->env[i] = ft_strdup(envp[i]);
-	g_shell->env[i] = NULL;
+	g_shell->env = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		lst_addback(&g_shell->env, lstnew(envp[i]));
+		i++;
+	}
 }

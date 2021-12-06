@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 02:58:49 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:22:40 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	init_area(NULL);
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
 	g_shell = &shell;
@@ -94,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 		inline_mode();
 	else
 		minishell();
-	ft_free_tab(g_shell->env, NULL);
-	exit(0);
+	free_lst(g_shell->env);
+	exit(g_shell->exit_code);
 	return (0);
 }

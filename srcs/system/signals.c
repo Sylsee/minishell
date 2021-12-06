@@ -14,7 +14,7 @@
 
 static void	redisplay_prompt(int signum)
 {
-	g_shell->exit_value = 128 + signum;
+	g_shell->exit_code = 128 + signum;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -23,7 +23,7 @@ static void	redisplay_prompt(int signum)
 
 static void	interrupt_process(int signum)
 {
-	g_shell->exit_value = 128 + signum;
+	g_shell->exit_code = 128 + signum;
 	write(1, "\n", 1);
 }
 

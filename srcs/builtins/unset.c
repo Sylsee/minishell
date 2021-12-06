@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system.h                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 19:07:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:31:02 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/06 20:08:45 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/06 20:09:26 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYSTEM_H
-# define SYSTEM_H
+#include "minishell.h"
 
-/* *** signal *** */
-void	signal_on_exec(void);
-void	signal_on_input(void);
-
-/* *** env *** */
-void	init_env(char **envp);
-
-#endif
+int	run_unset(int argc, char **argv)
+{
+	(void)argc;
+	(void)argv;
+	return (0);
+}
