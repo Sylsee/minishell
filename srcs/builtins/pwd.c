@@ -6,11 +6,15 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 23:37:32 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 20:21:17 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/09 02:40:55 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Reproduction of pwd function without any options
+*/
 
 int	run_pwd(int argc, char **argv)
 {

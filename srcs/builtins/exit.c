@@ -6,11 +6,15 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 18:31:19 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 20:43:00 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/09 02:39:28 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Reproduction of exit function without any options
+*/
 
 int	run_exit(int argc, char **argv)
 {

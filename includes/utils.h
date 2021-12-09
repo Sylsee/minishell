@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:33:50 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 21:02:26 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/09 02:32:50 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ size_t	lstsize(t_lst *lst);
 void	free_lst(t_lst *lst);
 char	*ft_getenv(char *name);
 char	**lst_to_array(t_lst *lst);
+void	set_env(char *content);
+void	lstdelone(char *name);
 
 /* *** path *** */
 char	*get_path(char *cmd);

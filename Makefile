@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/06 20:09:45 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/09 02:32:40 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,10 @@ TODELETE=	test.c
 
 UTILS	=	fd.c \
 			lst.c \
+			lstdelone.c \
 			error.c \
-			getenv.c
+			getenv.c \
+			set_env.c
 
 SYSTEM	=	signals.c \
 			init_env.c

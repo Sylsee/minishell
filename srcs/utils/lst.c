@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 19:03:59 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 21:04:51 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:47:15 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,14 @@ t_lst	*lstnew(char *content)
 	while (content[++i] && content[i] != '=')
 		new->name[i] = content[i];
 	new->name[i] = '\0';
-	new->content = ft_strdup(&(content[i + 1]));
-	if (new->content == NULL)
-		internal_error("unable to allocate memory", EXIT_FAILURE);
+	if (content[i] == '=')
+	{
+		new->content = ft_strdup(&(content[i + 1]));
+		if (new->content == NULL)
+			internal_error("unable to allocate memory", EXIT_FAILURE);
+	}
+	else
+		new->content = NULL;
 	new->next = NULL;
 	return (new);
 }
