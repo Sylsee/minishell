@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 10:25:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/09 02:38:33 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/06 20:08:45 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/09 02:41:47 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Reproduction of env function without any options or arguments
+**	Reproduction of unset function without any options
 */
 
-int	run_env(int argc, char **argv)
+int	run_unset(int argc, char **argv)
 {
-	t_lst	*tmp;
-
-	(void)argc;
-	(void)argv;
-	tmp = g_shell->env;
-	while (tmp)
+	if (argc == 1)
+		return (0);
+	argv++;
+	while (*argv)
 	{
-		ft_dprintf(STDOUT_FILENO, "%s=%s\n", tmp->name, tmp->content);
-		tmp = tmp->next;
+		lstdelone(*argv);
+		argv++;
 	}
 	return (0);
 }

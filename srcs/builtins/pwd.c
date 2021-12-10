@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 10:25:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/09 02:38:33 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/05 23:37:32 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/09 02:40:55 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Reproduction of env function without any options or arguments
+**	Reproduction of pwd function without any options
 */
 
-int	run_env(int argc, char **argv)
+int	run_pwd(int argc, char **argv)
 {
-	t_lst	*tmp;
+	char	*dir;
 
 	(void)argc;
 	(void)argv;
-	tmp = g_shell->env;
-	while (tmp)
+	dir = getcwd((char *) NULL, 0);
+	if (dir == NULL)
 	{
-		ft_dprintf(STDOUT_FILENO, "%s=%s\n", tmp->name, tmp->content);
-		tmp = tmp->next;
+		perror("getcwd");
+		return (EXIT_FAILURE);
 	}
-	return (0);
+	ft_putendl_fd(dir, STDOUT_FILENO);
+	free(dir);
+	return (EXIT_SUCCESS);
 }

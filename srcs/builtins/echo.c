@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:17:44 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:21:23 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 **	@param	display_return	=>	True if it's needed to display '\n' else false
 */
 
-static void	print_tab(char **s, bool display_return)
+static void	print_tab(int argc, char **s, bool display_return)
 {
 	int	i;
 
+	(void)argc;
 	if (!s)
 	{
 		if (display_return == true)
@@ -43,34 +44,33 @@ static void	print_tab(char **s, bool display_return)
 
 /*
 **	Reproduction of echo command with '-n' argument available
-**
-**	@param	args	=>	The arguments to print
 */
 
-void	run_echo(char **args)
+int	run_echo(int argc, char **argv)
 {
 	size_t	i;
 	bool	display_return;
 
 	i = 0;
 	display_return = true;
-	if (*args && (*args)[0] == '-' && (*args)[1])
+	if (*(++argv) && (*argv)[0] == '-' && (*argv)[1])
 	{
-		while ((*args)[++i] == 'n')
+		while ((*argv)[++i] == 'n')
 			display_return = false;
-		if ((*args)[i])
+		if ((*argv)[i])
 			display_return = true;
 		else
-			args++;
+			argv++;
 	}
-	while (display_return == false && *args && (*args)[0] == '-')
+	while (display_return == false && *argv && (*argv)[0] == '-')
 	{
 		i = 1;
-		while ((*args)[i] == 'n')
+		while ((*argv)[i] == 'n')
 			i++;
-		if ((*args)[i])
+		if ((*argv)[i])
 			break ;
-		args++;
+		argv++;
 	}
-	print_tab(args, display_return);
+	print_tab(argc, argv, display_return);
+	return (0);
 }

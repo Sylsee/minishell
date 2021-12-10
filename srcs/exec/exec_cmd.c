@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:00:00 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/01 19:05:09 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/06 19:45:29 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@ static void	child(t_cmd *cmd)
 {
 	int		ret;
 	char	*path;
+	char	**env;
 
 	signal_on_exec();
 	path = get_path(cmd->argv[0]);
 	ret = check_error(path, cmd->argv[0]);
 	if (ret != EXIT_SUCCESS)
 		exit(ret);
-	if (execve(path, cmd->argv, g_shell->env) == -1)
+	env = lst_to_array(g_shell->env);
+	if (execve(path, cmd->argv, env) == -1)
 		exit(manage_error(path, cmd->argv[0], strerror(errno), 126));
+	ft_free_tab(env, NULL);
 	free_one(path, NULL);
 	exit(EXIT_SUCCESS);
 }
@@ -50,7 +53,7 @@ static void	parent(pid_t pid)
 	if (WIFSIGNALED(wstatus))
 		print_signal(WTERMSIG(wstatus));
 	if (WIFEXITED(wstatus))
-		g_shell->exit_value = WEXITSTATUS(wstatus);
+		g_shell->exit_code = WEXITSTATUS(wstatus);
 }
 
 /*

@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/03 02:56:46 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/10 17:48:51 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,12 +45,25 @@ I		=	-I./includes
 
 TODELETE=	test.c
 
+UTILS	=	fd.c \
+			lst.c \
+			lstdelone.c \
+			error.c \
+			getenv.c \
+			set_env.c \
+			set_env2.c
+
 SYSTEM	=	signals.c \
 			init_env.c
 
 BUILTIN	=	builtins.c \
+			cd.c \
+			pwd.c \
 			env.c \
-			echo.c
+			exit.c \
+			echo.c \
+			unset.c \
+			export.c
 
 EXEC	=	exec.c \
 			exec_cmd.c \
@@ -59,11 +72,10 @@ EXEC	=	exec.c \
 			path.c
 
 SRCS	=	main.c \
-			error.c \
-			utils.c \
 			$(EXEC) \
 			$(BUILTIN) \
 			$(SYSTEM) \
+			$(UTILS) \
 			$(TODELETE)
 
 # [ OBJECTS ] #
@@ -72,7 +84,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/exec:srcs/builtins:srcs/system
+VPATH	=	includes:srcs:srcs/lexer:srcs/exec:srcs/builtins:srcs/system:srcs/utils
 
 # [ RULES ] #
 
