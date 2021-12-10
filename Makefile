@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/10 16:56:13 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/10 17:48:51 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ fclean:		clean
 re:			fclean all
 
 valgrind: 	all
-			@$(VALGRIND) $(VFLAGS) env -i ./$(NAME)
+			@$(VALGRIND) $(VFLAGS) ./$(NAME)
 
 # [ PHONY ] #
 
