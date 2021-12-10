@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 20:30:55 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:21:23 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ int	run_echo(int argc, char **argv)
 	size_t	i;
 	bool	display_return;
 
-	argv++;
 	i = 0;
 	display_return = true;
-	if (*argv && (*argv)[0] == '-' && (*argv)[1])
+	if (*(++argv) && (*argv)[0] == '-' && (*argv)[1])
 	{
 		while ((*argv)[++i] == 'n')
 			display_return = false;

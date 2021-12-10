@@ -6,11 +6,17 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:00:28 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/09 02:39:52 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:31:35 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Print the environment variable with special format
+**
+**	@return 0
+*/
 
 static int	export_print_env(void)
 {
@@ -20,19 +26,29 @@ static int	export_print_env(void)
 	while (tmp)
 	{
 		ft_dprintf(STDOUT_FILENO, "declare -x %s=\"%s\"\n", tmp->name,
-				tmp->content);
+			tmp->content);
 		tmp = tmp->next;
 	}
 	return (0);
 }
 
-static bool	check_format_export(char *s)
+/*
+**	Check if the format of the variable to export is correct
+**
+**	@param	var	=>	The variable to export
+**
+**	@return true if the format is correct, else false
+*/
+
+static bool	check_format_export(char *var)
 {
-	while (*s)
+	if (ft_isdigit(*var))
+		return (false);
+	while (*var && *var != '=')
 	{
-		if (ft_isalnum(*s) == 0 && *s != '_' && *s != '=')
+		if (ft_isalnum(*var) == 0 && *var != '_')
 			return (false);
-		s++;
+		var++;
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:33:50 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/09 02:32:50 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:56:20 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_dup2(int ofd, int fd);
 void	restfd(int fd, int ofd);
 
 /* *** lst *** */
-typedef	struct s_lst
+typedef struct s_lst
 {
 	char			*name;
 	char			*content;
@@ -32,8 +32,9 @@ size_t	lstsize(t_lst *lst);
 void	free_lst(t_lst *lst);
 char	*ft_getenv(char *name);
 char	**lst_to_array(t_lst *lst);
-void	set_env(char *content);
 void	lstdelone(char *name);
+void	set_env(char *content);
+void	set_env2(char *name, char *content);
 
 /* *** path *** */
 char	*get_path(char *cmd);

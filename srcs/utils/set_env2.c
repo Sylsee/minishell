@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   set_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 19:14:46 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:17:44 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/10 15:01:14 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/10 17:41:41 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**	Check if this is the same variable name
-**
-**	@param	content	=>	The variable name to check
-**	@param	name	=>	The environment variable
-**
-**	@return true if they are same, else false
-*/
-
-static bool	check_name(char *content, char *name)
-{
-	size_t	i;
-
-	i = 0;
-	while (content[i] && name[i] && content[i] == name[i])
-		i++;
-	if ((content[i] == '=' || content[i] == '\0') && name[i] == '\0')
-		return (true);
-	return (false);
-}
 
 /*
 **	Check if name is an environment variable
@@ -42,14 +21,14 @@ static bool	check_name(char *content, char *name)
 **	else false
 */
 
-static bool	in_env(char *content)
+static bool	in_env(char *name)
 {
 	t_lst	*tmp;
 
 	tmp = g_shell->env;
 	while (tmp)
 	{
-		if (check_name(content, tmp->name) == true)
+		if (ft_strequ(name, tmp->name))
 			return (true);
 		tmp = tmp->next;
 	}
@@ -63,26 +42,19 @@ static bool	in_env(char *content)
 **	@param	content	=>	The new content of the environment variable
 */
 
-static void	modify_content(char *content)
+static void	modify_content(char *name, char *content)
 {
-	size_t	i;
 	t_lst	*tmp;
 
 	tmp = g_shell->env;
-	while (tmp && check_name(content, tmp->name) == false)
+	while (tmp && ft_strequ(name, tmp->name) == 0)
 		tmp = tmp->next;
 	if (tmp)
 	{
-		i = 0;
-		while (content[i] && content[i] != '=')
-			i++;
-		if (content[i] == '=')
-		{
-			free_one(tmp->content, NULL);
-			tmp->content = ft_strdup(&content[i + 1]);
-			if (tmp->content == NULL)
-				internal_error("unable to allocate memory", EXIT_FAILURE);
-		}
+		free_one(tmp->content, NULL);
+		tmp->content = ft_strdup(content);
+		if (tmp->content == NULL)
+			internal_error("unable to allocate memory", EXIT_FAILURE);
 	}
 }
 
@@ -93,10 +65,16 @@ static void	modify_content(char *content)
 **	@param	content	=>	The content to set of the environment variable
 */
 
-void	set_env(char *content)
+void	set_env2(char *name, char *content)
 {
-	if (in_env(content) == true)
-		modify_content(content);
+	char	*new;
+
+	if (in_env(name) == true)
+		modify_content(name, content);
 	else
-		lst_addback(&g_shell->env, lstnew(content));
+	{
+		new = ft_str3join(name, "=", content);
+		lst_addback(&g_shell->env, lstnew(new));
+		free_one(new, NULL);
+	}
 }

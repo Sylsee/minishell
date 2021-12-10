@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 19:03:59 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/07 19:47:15 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:44:15 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	lst_addback(t_lst **alst, t_lst *new)
 **	Create a new token for t_lst chained list
 **
 **	@param	content	=>	The information to stock in the token
+**
+**	@return the new token
 */
 
 t_lst	*lstnew(char *content)

@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/09 02:32:40 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/10 16:56:13 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ UTILS	=	fd.c \
 			lstdelone.c \
 			error.c \
 			getenv.c \
-			set_env.c
+			set_env.c \
+			set_env2.c
 
 SYSTEM	=	signals.c \
 			init_env.c
@@ -115,7 +116,7 @@ fclean:		clean
 re:			fclean all
 
 valgrind: 	all
-			@$(VALGRIND) $(VFLAGS) ./$(NAME)
+			@$(VALGRIND) $(VFLAGS) env -i ./$(NAME)
 
 # [ PHONY ] #
 
