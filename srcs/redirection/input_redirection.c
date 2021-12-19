@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	input_redirection(t_cmd *cmd, char **argv)
+bool	input_redirection(t_cmd *cmd, char **argv)
 {
 	if (cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);

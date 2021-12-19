@@ -62,7 +62,7 @@ static t_token	*add_new_token(char	**line)
 **	@return	boolean value.
 */
 
-t_bool	tokenization(char *line, t_token **tokens)
+bool	tokenization(char *line, t_token **tokens)
 {
 	while (*line)
 	{

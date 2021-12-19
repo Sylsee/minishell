@@ -28,7 +28,7 @@
 **  @return a boolean value.
 */
 
-static t_bool	check_expansion(int i, char **splitted, char **argv)
+static bool	check_expansion(int i, char **splitted, char **argv)
 {
 	if (i > 0 && get_array_len(splitted) > 1
 		&& str_is_redirection(argv[i - 1]))
@@ -53,7 +53,7 @@ static t_bool	check_expansion(int i, char **splitted, char **argv)
 **  @return a boolean value.
 */
 
-t_bool	realloc_argv(t_cmd *cmd, int i, int *j, char *var_value)
+bool	realloc_argv(t_cmd *cmd, int i, int *j, char *var_value)
 {
 	t_expand	expand;
 

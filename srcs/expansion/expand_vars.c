@@ -21,11 +21,11 @@
 **	return	a boolean value.
 */
 
-t_bool	expand_vars(t_cmd *cmd, int cursor)
+bool	expand_vars(t_cmd *cmd, int cursor)
 {
 	int		j;
-	t_bool	squotes;
-	t_bool	dquotes;
+	bool	squotes;
+	bool	dquotes;
 
 	j = 0;
 	dquotes = false;

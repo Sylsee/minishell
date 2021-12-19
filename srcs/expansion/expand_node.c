@@ -20,7 +20,7 @@
 **	@return a boolean value.
 */
 
-t_bool	expand_node(t_node *ast)
+bool	expand_node(t_node *ast)
 {
 	if (ast->type == CMD_NODE)
 		return (expanser(&ast->content.cmd));

@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	redirections(t_cmd *cmd, char **argv)
+bool	redirections(t_cmd *cmd, char **argv)
 {
 	if (ft_strcmp("<", *argv) == 0)
 		return (input_redirection(cmd, argv));

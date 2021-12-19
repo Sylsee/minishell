@@ -79,7 +79,7 @@ static char	*heredoc(char *delimiter)
 **	@return	the heredoc fd.
 */
 
-static int	get_heredoc_fd(char *str, t_bool has_quotes)
+static int	get_heredoc_fd(char *str, bool has_quotes)
 {
 	char	*doc;
 	int		fd[2];
@@ -110,7 +110,7 @@ static int	get_heredoc_fd(char *str, t_bool has_quotes)
 **	@return	a boolean value.
 */
 
-t_bool	heredoc_redirection(t_cmd *cmd, char **argv)
+bool	heredoc_redirection(t_cmd *cmd, char **argv)
 {
 	if (cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);

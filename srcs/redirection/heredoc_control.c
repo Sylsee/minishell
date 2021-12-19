@@ -24,7 +24,7 @@ delimited by end-of-file (wanted `%s')\n",
 **	@return	a boolean value.
 */
 
-t_bool	heredoc_control(char *delimiter, char *line)
+bool	heredoc_control(char *delimiter, char *line)
 {
 	if (!line && ft_strcmp(delimiter, "") == 0)
 		return (true);

@@ -6,35 +6,50 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 09:58:31 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:06:59 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "builtin.h"
-# include "../libft/includes/libft.h"
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include "ast.h"
+# include "exec.h"
+# include "builtin.h"
+# include "../libft/includes/libft.h"
+# include "utils.h"
+# include "system.h"
 
 # define NO_ERR 0
 # define SYNTAX_ERR 2
 # define FAILURE_ERR 1
 # define MALLOC_ERR	1
 # define CTRLC_ERR	130
-# define ft_dprintf(fd, ...)  dprintf(fd, ##__VA_ARGS__) 
+
+# define ft_dprintf(X, str, ...) dprintf(X, str, __VA_ARGS__)
+
+/*
+**	Main structure
+*/
 
 typedef struct s_shell
 {
-	char	**env;
 	t_area	a;
 	t_area	ast_area;
+	t_lst	*env;
+	int		signum;
+	int		savefd[2];
 	int		exit_code;
 	int		line_count;
-}				t_shell;
+}			t_shell;
 
 /*
 **	The e_error_msg enum represents the type of error message contained
@@ -68,29 +83,14 @@ enum	e_error_msg
 /*
 ** Global variables
 */
+
 extern t_shell	*g_shell;
 
-typedef short	t_bool;
-
-/*
-** Ast
-*/
-
-# include "ast.h"
-
-/*
-** Lexer
-*/
-
+# include "test.h"
 # include "../srcs/lexer/lexer.h"
 # include "../srcs/parser/parser.h"
 # include "../srcs/exec/exec.h"
 # include "../srcs/redirection/redirection.h"
 # include "../srcs/expansion/expansion.h"
-/*
-** Error
-*/
-void	internal_error(char *s, int code);
-char	*ft_getenv(char *s);
 
 #endif

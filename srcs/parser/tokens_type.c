@@ -20,7 +20,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	is_redirection(enum e_token_type type)
+bool	is_redirection(enum e_token_type type)
 {
 	return (type == Iheredoc_token || type == Oheredoc_token
 		|| type == Iredir_token || type == Oredir_token);

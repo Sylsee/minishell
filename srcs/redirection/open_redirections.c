@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_bool	open_redirections(t_cmd *cmd)
+bool	open_redirections(t_cmd *cmd)
 {
 	int	i;
 

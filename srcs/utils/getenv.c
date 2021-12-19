@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   getenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 10:25:03 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/03 18:54:57 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/03 16:40:29 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/06 18:09:14 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_getenv(char *s)
-{
-	char	**env;
-	size_t	len_s;
+/*
+**	Get the content of the global variable
+**
+**	@param	name	=>	The name of the variable resqueted
+**
+**	@return	the content of the global variable or NULL if not found or empty
+*/
 
-	if (!s || !*s || !g_shell->env)
+char	*ft_getenv(char *name)
+{
+	t_lst	*tmp;
+
+	if (!name || !*name || !g_shell->env)
 		return (NULL);
-	env = g_shell->env;
-	len_s = ft_strlen(s);
-	while (*env && ft_strncmp(*env, s, len_s))
-		env++;
-	if (*env && !ft_strncmp(*env, s, len_s))
-		return (&((*env)[len_s + 1]));
-	return (NULL);
-}
-
-void	run_env(void)
-{
-	char	**env;
-
-	env = g_shell->env;
-	while (*env)
+	tmp = g_shell->env;
+	while (tmp)
 	{
-		ft_putendl_fd(*env, 1);
-		env++;
+		if (ft_strequ(tmp->name, name))
+			return (tmp->content);
+		tmp = tmp->next;
 	}
+	return (NULL);
 }

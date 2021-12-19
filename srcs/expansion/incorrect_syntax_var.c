@@ -20,7 +20,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	incorrect_syntax_var(char c)
+bool	incorrect_syntax_var(char c)
 {
 	return (c == '\0' || ((ft_isalnum(c) == 0 && c != '_') && c != '?'));
 }

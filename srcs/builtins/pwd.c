@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/03 18:43:34 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/05 23:37:32 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/09 02:40:55 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_tab(char **s)
-{
-	int	i;
+/*
+**	Reproduction of pwd function without any options
+*/
 
-	i = 0;
-	while (s[i])
+int	run_pwd(int argc, char **argv)
+{
+	char	*dir;
+
+	(void)argc;
+	(void)argv;
+	dir = getcwd((char *) NULL, 0);
+	if (dir == NULL)
 	{
-		ft_putstr_fd(s[i], 1);
-		i++;
-		if (s[i])
-			ft_putchar_fd(' ', 1);
+		perror("getcwd");
+		return (EXIT_FAILURE);
 	}
-}
-
-void	run_echo(char **arg)
-{
-	int	i;
-	int	j;
-	int	param;
-
-	i = -1;
-	j = -1;
-	param = 0;
-	while (arg[++i][0] == '-')
-		while (arg[i][++j] == 'n')
-			param = 1;
-	print_tab(&arg[i]);
-	if (!param)
-		ft_putchar_fd('\n', 1);
+	ft_putendl_fd(dir, STDOUT_FILENO);
+	free(dir);
+	return (EXIT_SUCCESS);
 }

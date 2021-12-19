@@ -22,8 +22,8 @@
 
 static int	get_len_wquotes(char *str)
 {
-	t_bool	squotes;
-	t_bool	dquotes;
+	bool	squotes;
+	bool	dquotes;
 	int		i;
 	int		len;
 
@@ -71,8 +71,8 @@ static void	restore_quotes(char *str)
 
 static char	*remove_quote(char *str)
 {
-	t_bool	squotes;
-	t_bool	dquotes;
+	bool	squotes;
+	bool	dquotes;
 	int		i;
 	int		j;
 	char	*wquotes;

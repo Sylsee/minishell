@@ -37,7 +37,7 @@ static t_token	*last_token(t_token	*token)
 **	@return	a boolean value (false if the token parameter is equal to NULL)
 */
 
-t_bool	token_add_back(t_token **tokens, t_token *token)
+bool	token_add_back(t_token **tokens, t_token *token)
 {
 	t_token	*tmp;
 

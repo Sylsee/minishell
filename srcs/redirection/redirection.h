@@ -15,14 +15,14 @@
 
 # define MAX_REDIR_ARG_LENGTH 255
 
-t_bool	clear_redirections(t_node *ast);
-t_bool	open_redirections(t_cmd *cmd);
-t_bool	heredoc_redirection(t_cmd *cmd, char **argv);
-t_bool	input_redirection(t_cmd *cmd, char **argv);
-t_bool	output_redirection(t_cmd *cmd, char **argv);
-t_bool	redirection_error(char *filename);
-t_bool	redirections(t_cmd *cmd, char **argv);
-t_bool	heredoc_control(char *delimiter, char *line);
+bool	clear_redirections(t_node *ast);
+bool	open_redirections(t_cmd *cmd);
+bool	heredoc_redirection(t_cmd *cmd, char **argv);
+bool	input_redirection(t_cmd *cmd, char **argv);
+bool	output_redirection(t_cmd *cmd, char **argv);
+bool	redirection_error(char *filename);
+bool	redirections(t_cmd *cmd, char **argv);
+bool	heredoc_control(char *delimiter, char *line);
 void	remove_redirections(char **argv);
 char	*fill_doc(char *s1, char *s2, char *s3);
 

@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	create_cmd(t_node **node, t_token **tokens)
+bool	create_cmd(t_node **node, t_token **tokens)
 {
 	if ((*tokens)->type != Word_token && !is_redirection((*tokens)->type))
 		return (false);

@@ -23,7 +23,7 @@
 **  @return a boolean value.
 */
 
-t_bool	check_var_pos(char **argv, int cursor)
+bool	check_var_pos(char **argv, int cursor)
 {
 	return (ft_strchr(argv[cursor], '$') != NULL
 		&& !(cursor > 0 && ft_strcmp(argv[cursor - 1], "<<") == 0));

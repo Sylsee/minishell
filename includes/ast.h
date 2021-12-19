@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 15:19:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/17 20:27:53 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:06:30 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_cmd
 	char	**argv;
 	int		fd_in;
 	int		fd_out;
-	t_bool	has_quotes;
+	bool	has_quotes;
 }			t_cmd;
 
 /*

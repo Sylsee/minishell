@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-static t_bool	has_quotes(char **argv, int i)
+static bool	has_quotes(char **argv, int i)
 {
 	return (ft_strchr(argv[i + 1], '\'') != NULL
 		|| ft_strchr(argv[i + 1], '"') != NULL);
@@ -35,7 +35,7 @@ static t_bool	has_quotes(char **argv, int i)
 **	@return	a boolean value.
 */
 
-t_bool	expanser(t_cmd *cmd)
+bool	expanser(t_cmd *cmd)
 {
 	int	i;
 

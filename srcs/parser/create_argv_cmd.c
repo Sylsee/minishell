@@ -45,7 +45,7 @@ static int	get_argv_size(t_token *tokens)
 **	@return	a boolean value.
 */
 
-t_bool	create_argv_cmd(t_cmd *cmd, t_token **tokens)
+bool	create_argv_cmd(t_cmd *cmd, t_token **tokens)
 {
 	int	i;
 

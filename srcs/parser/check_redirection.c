@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	check_redirection(t_token **tokens)
+bool	check_redirection(t_token **tokens)
 {
 	if (is_redirection((*tokens)->type) && (!(*tokens)->next
 			|| (*tokens)->next->type != Word_token))
@@ -35,13 +35,13 @@ t_bool	check_redirection(t_token **tokens)
 	return (true);
 }
 
-t_bool	str_is_redirection(char *str)
+bool	str_is_redirection(char *str)
 {
 	return (ft_strcmp("<", str) == 0 || ft_strcmp("<<", str) == 0
 		|| ft_strcmp(">", str) == 0 || ft_strcmp(">>", str) == 0);
 }
 
-t_bool	check_arg(char *arg)
+bool	check_arg(char *arg)
 {
 	if (ft_strlen(arg) > MAX_REDIR_ARG_LENGTH)
 	{

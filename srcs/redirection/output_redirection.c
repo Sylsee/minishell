@@ -22,7 +22,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	output_redirection(t_cmd *cmd, char **argv)
+bool	output_redirection(t_cmd *cmd, char **argv)
 {
 	int	flag;
 

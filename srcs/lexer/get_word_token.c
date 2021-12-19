@@ -65,7 +65,7 @@ static void	set_quotes(t_word_data *data, int flags)
 **	return	boolean value.
 */
 
-static t_bool	check_quotes(t_word_data *data)
+static bool	check_quotes(t_word_data *data)
 {
 	if (data->word_type == Null_char)
 		return (NOT_VALID_CHAR);
@@ -82,7 +82,7 @@ static t_bool	check_quotes(t_word_data *data)
 **	return	boolean value.
 */
 
-static t_bool	is_valid_char(char c, t_word_data *data)
+static bool	is_valid_char(char c, t_word_data *data)
 {
 	data->word_type = get_char_type(c);
 	if (!data->squotes && !data->dquotes)

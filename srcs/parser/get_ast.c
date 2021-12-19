@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   get_ast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 15:30:46 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/19 23:04:21 by spoliart         ###   ########.fr       */
+/*   Created: 2021/12/19 22:54:56 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/19 22:55:06 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	The main function of execution
-**	Check if it's a pipe or a simple command to execute it recursively
-**
-**	@param	ast	=> the ast where pipes and command are store
-*/
-
-void	exec(t_node *ast)
+t_node	*get_ast(char *line)
 {
-	if (!expand_node(ast) || !clear_redirections(ast))
+	t_node	*ast;
+	t_token	*tokens;
+
+	ast = NULL;
+	tokens = NULL;
+	if (tokenization(line, &tokens) == true)
 	{
-		g_shell->exit_code = FAILURE_ERR;
-		return ;
+		if (create_ast(&tokens, &ast) == false || tokens != NULL)
+			ast_error(tokens);
+		clear_tokens(&tokens);
 	}
-	if (ast->type == CMD_NODE)
-		exec_cmd(&ast->content.cmd);
-	else if (ast->type == PIPE_NODE)
-		exec_pipe(&ast->content);
+	else
+		g_shell->exit_code = SYNTAX_ERR;
+	return (ast);
 }

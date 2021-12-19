@@ -20,7 +20,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	clear_redirections(t_node *ast)
+bool	clear_redirections(t_node *ast)
 {
 	if (ast->type == CMD_NODE)
 		return (open_redirections(&ast->content.cmd));

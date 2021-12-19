@@ -21,7 +21,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	parse_pipe(t_token **tokens, t_node **ast)
+bool	parse_pipe(t_token **tokens, t_node **ast)
 {
 	t_node	*node;
 

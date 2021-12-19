@@ -22,7 +22,7 @@
 **	@return	boolean value.
 */
 
-t_bool	create_ast(t_token **tokens, t_node **ast)
+bool	create_ast(t_token **tokens, t_node **ast)
 {
 	*ast = NULL;
 	while (*tokens)

@@ -20,7 +20,7 @@
 **	@return	a boolean value.
 */
 
-t_bool	redirection_error(char *filename)
+bool	redirection_error(char *filename)
 {
 	ft_dprintf(STDERR_FILENO, "minishell: %s : %s",
 		filename, error_msg(ERR_NO_FILE));

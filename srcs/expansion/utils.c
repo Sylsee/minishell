@@ -36,7 +36,7 @@ void	exit_if_equal(char *s1, char *s2, int code)
 **  @return a boolean value.
 */
 
-t_bool	has_space(char *str)
+bool	has_space(char *str)
 {
 	while (*str)
 	{
@@ -57,7 +57,7 @@ t_bool	has_space(char *str)
 **  @return void.
 */
 
-void	update_quotes(char c, t_bool *squotes, t_bool *dquotes)
+void	update_quotes(char c, bool *squotes, bool *dquotes)
 {
 	if (c == '\'' && !*dquotes)
 		*squotes = !(*squotes);

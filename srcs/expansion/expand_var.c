@@ -21,7 +21,7 @@
 **  return  a boolean value.
 */
 
-t_bool	exit_and_free_var(char *var_name, char *var_value, t_bool code)
+bool	exit_and_free_var(char *var_name, char *var_value, bool code)
 {
 	free_one(var_name, NULL);
 	if (var_value)
@@ -41,7 +41,7 @@ t_bool	exit_and_free_var(char *var_name, char *var_value, t_bool code)
 **  @return a boolean value.
 */
 
-t_bool	expand_var(t_cmd *cmd, int i, int *j, t_bool dquotes)
+bool	expand_var(t_cmd *cmd, int i, int *j, bool dquotes)
 {
 	char	*var_name;
 	char	*var_value;

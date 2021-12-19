@@ -6,11 +6,12 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/03 19:06:30 by arguilla         ###   ########.fr        #
+#    Updated: 2021/12/19 23:08:20 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # [ VARIABLES ] #
+
 SHELL	=	/bin/sh
 NAME	=	minishell
 RM		=	/bin/rm -rf
@@ -66,10 +67,8 @@ PARSER	=	create_ast.c \
 			free_ast.c \
 			skip_token.c \
 			print_ast.c \
+			get_ast.c
 
-EXEC	=	exec.c \
-
-					
 REDIRECTIONS	=	clear_redirections.c \
 					open_redirections.c \
 					heredoc_redirection.c \
@@ -97,16 +96,44 @@ EXPANSIONS	=	expand_node.c \
 				quotes.c \
 				expand_stream_vars.c \
 
+TODELETE=	test.c
+
+UTILS	=	fd.c \
+			lst.c \
+			lstdelone.c \
+			error.c \
+			getenv.c \
+			set_env.c \
+			set_env2.c
+
+SYSTEM	=	signals.c \
+			init_env.c
+
+BUILTIN	=	builtins.c \
+			cd.c \
+			pwd.c \
+			env.c \
+			exit.c \
+			echo.c \
+			unset.c \
+			export.c
+
+EXEC	=	exec.c \
+			exec_cmd.c \
+			exec_pipe.c \
+			exec_utils.c \
+			path.c
 
 SRCS	=	main.c \
-			echo.c \
-			env.c \
-			error.c \
 			$(LEXER) \
 			$(PARSER) \
 			$(REDIRECTIONS) \
 			$(EXPANSIONS) \
 			$(EXEC) \
+			$(BUILTIN) \
+			$(SYSTEM) \
+			$(UTILS) \
+			$(TODELETE)
 
 # [ OBJECTS ] #
 
@@ -114,7 +141,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/parser:srcs/redirection:srcs/expansion:srcs/exec:
+VPATH	=	includes:srcs:srcs/lexer:srcs/parser:srcs/redirection:srcs/expansion:srcs/exec:srcs/builtins:srcs/system:srcs/utils
 
 # [ RULES ] #
 

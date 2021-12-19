@@ -105,14 +105,14 @@ typedef struct s_word_data
 ** Main token
 */
 
-t_bool				tokenization(char *line, t_token **tokens);
+bool				tokenization(char *line, t_token **tokens);
 
 /*
 ** Tokens CRUD
 */
 
 t_token				*create_token(char	*data, enum e_token_type type);
-t_bool				token_add_back(t_token **tokens, t_token *token);
+bool				token_add_back(t_token **tokens, t_token *token);
 void				clear_tokens(t_token **tokens);
 
 /*

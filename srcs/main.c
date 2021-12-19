@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 07:52:00 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:07:19 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,57 +22,73 @@ void	free_leaks(void)
 	free_area(NULL);
 }
 
-static void	init_env(char **envp)
+char	*rl_gets(void)
 {
-	size_t	i;
+	static char	*rl_line = NULL;
 
-	init_area(NULL);
-	g_shell->env = alloc(sizeof(char *) * (ft_tablen(envp) + 1), &g_shell->a);
-	if (!g_shell->env)
-		internal_error("Unable to allocate memory", EXIT_FAILURE);
-	i = -1;
-	while (envp[++i])
-		g_shell->env[i] = ft_strdup(envp[i]);
-	g_shell->env[i] = NULL;
+	if (rl_line)
+	{
+		free(rl_line);
+		rl_line = NULL;
+	}
+	rl_line = readline("$ ");
+	if (rl_line && *rl_line)
+		add_history(rl_line);
+	else if (!rl_line)
+		write(STDOUT_FILENO, "exit\n", 5);
+	g_shell->line_count++;
+	return (rl_line);
 }
 
 static void	minishell(void)
 {
-	char	*s;
-	t_token	*tokens;
 	t_node	*ast;
+	char	*rl_line;
 
-	tokens = NULL;
 	ast = NULL;
 	while (true)
 	{
-		s = readline("$ ");
-		g_shell->line_count++;
-		if (!s)
+		signal_on_input();
+		rl_line = rl_gets();
+		if (!rl_line)
 			break ;
-		add_history(s);
-		if (tokenization(s, &tokens))
+		if (*rl_line)
 		{
-			if (!create_ast(&tokens, &ast) || tokens)
-				ast_error(tokens);
-			else
+			ast = get_ast(rl_line);
+			if (ast != NULL)
 			{
-				printf("%s\n", ast->content.left->content.cmd.argv[0]);
-			/*	"a | b"
-
-				ast->type = PIPE_NODE
-						->content.left = node qui contient "a"
-						->content.right = node qui contient "b"
-*/
 				exec(ast);
+				free_ast(&ast);
 			}
-			//print_ast(ast);
+		}
+	}
+	if (rl_line != NULL)
+		free(rl_line);
+}
+
+static void	inline_mode(void)
+{
+	int		ret;
+	t_node	*ast;
+	char	*line;
+
+	ast = NULL;
+	while (true)
+	{
+		ret = get_next_line(STDIN_FILENO, &line);
+		if (ret == -1)
+			internal_error("get_next_line error", EXIT_FAILURE);
+		if (!line)
+			break ;
+		ast = get_ast(line);
+		if (ast != NULL)
+		{
+			exec(ast);
 			free_ast(&ast);
 		}
-		else
-			g_shell->exit_code = SYNTAX_ERR;
-		clear_tokens(&tokens);
-		free(s);
+		free(line);
+		if (ret == 0)
+			break ;
 	}
 }
 
@@ -82,15 +98,18 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
+	init_area(NULL);
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
 	shell.exit_code = NO_ERR;
 	shell.line_count = 0;
 	g_shell = &shell;
 	init_env(envp);
-//	init_signal();
-	minishell();
-	exit(0);
+	if (isatty(STDIN_FILENO) == 0)
+		inline_mode();
+	else
+		minishell();
+	free_lst(g_shell->env);
+	exit(g_shell->exit_code);
 	return (0);
 }
