@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/19 23:08:20 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/19 23:18:31 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ LEXER	=	tokenization.c \
 			get_redirection_token.c \
 			create_token.c \
 			token_add_back.c \
-			clear_tokens.c \
+			clear_tokens.c
 
 PARSER	=	create_ast.c \
 			parse_tokens.c \
@@ -78,7 +78,7 @@ REDIRECTIONS	=	clear_redirections.c \
 					redirections.c \
 					remove_redirections.c \
 					heredoc_control.c \
-					fill_doc.c \
+					fill_doc.c
 
 EXPANSIONS	=	expand_node.c \
 				expanser.c \
@@ -94,7 +94,7 @@ EXPANSIONS	=	expand_node.c \
 				init_expand.c \
 				get_var.c \
 				quotes.c \
-				expand_stream_vars.c \
+				expand_stream_vars.c
 
 TODELETE=	test.c
 
