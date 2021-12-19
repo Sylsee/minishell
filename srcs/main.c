@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:34:29 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/19 23:07:19 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ char	*rl_gets(void)
 		add_history(rl_line);
 	else if (!rl_line)
 		write(STDOUT_FILENO, "exit\n", 5);
+	g_shell->line_count++;
 	return (rl_line);
 }
 
 static void	minishell(void)
 {
-	t_node	_ast;
-	t_area	test;
+	t_node	*ast;
 	char	*rl_line;
 
-	init_area(&test);
+	ast = NULL;
 	while (true)
 	{
 		signal_on_input();
@@ -54,29 +54,41 @@ static void	minishell(void)
 			break ;
 		if (*rl_line)
 		{
-			/* token = tokenizer(line); */
-			_ast = ast(rl_line, test);
-			exec(&_ast);
+			ast = get_ast(rl_line);
+			if (ast != NULL)
+			{
+				exec(ast);
+				free_ast(&ast);
+			}
 		}
 	}
-	free(rl_line);
+	if (rl_line != NULL)
+		free(rl_line);
 }
 
 static void	inline_mode(void)
 {
+	int		ret;
+	t_node	*ast;
 	char	*line;
-	t_node	_ast;
-	t_area	test;
 
-	init_area(&test);
-	while (get_next_line(STDIN_FILENO, &line) > 0)
+	ast = NULL;
+	while (true)
 	{
+		ret = get_next_line(STDIN_FILENO, &line);
+		if (ret == -1)
+			internal_error("get_next_line error", EXIT_FAILURE);
 		if (!line)
 			break ;
-		/* token = tokenizer(line); */
-		_ast = ast(line, test);
-		exec(&_ast);
+		ast = get_ast(line);
+		if (ast != NULL)
+		{
+			exec(ast);
+			free_ast(&ast);
+		}
 		free(line);
+		if (ret == 0)
+			break ;
 	}
 }
 
@@ -89,6 +101,8 @@ int	main(int argc, char **argv, char **envp)
 	init_area(NULL);
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
+	shell.exit_code = NO_ERR;
+	shell.line_count = 0;
 	g_shell = &shell;
 	init_env(envp);
 	if (isatty(STDIN_FILENO) == 0)

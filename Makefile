@@ -6,11 +6,12 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/10 17:48:51 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/19 23:08:20 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # [ VARIABLES ] #
+
 SHELL	=	/bin/sh
 NAME	=	minishell
 RM		=	/bin/rm -rf
@@ -43,6 +44,58 @@ I		=	-I./includes
 
 # [ SOURCES ] #
 
+LEXER	=	tokenization.c \
+			get_word_token.c \
+			get_char_type.c \
+			get_pipe_token.c \
+			get_redirection_token.c \
+			create_token.c \
+			token_add_back.c \
+			clear_tokens.c \
+
+PARSER	=	create_ast.c \
+			parse_tokens.c \
+			tokens_type.c \
+			create_cmd.c \
+			create_argv_cmd.c \
+			check_redirection.c \
+			parse_pipe.c \
+			check_pipe.c \
+			error_msg.c \
+			create_pipe.c \
+			ast_error.c \
+			free_ast.c \
+			skip_token.c \
+			print_ast.c \
+			get_ast.c
+
+REDIRECTIONS	=	clear_redirections.c \
+					open_redirections.c \
+					heredoc_redirection.c \
+					input_redirection.c \
+					output_redirection.c \
+					redirection_error.c \
+					redirections.c \
+					remove_redirections.c \
+					heredoc_control.c \
+					fill_doc.c \
+
+EXPANSIONS	=	expand_node.c \
+				expanser.c \
+				check_var_pos.c \
+				incorrect_syntax_var.c \
+				expand_vars.c \
+				update_argv.c \
+				expand_var.c \
+				utils.c \
+				realloc_argv.c \
+				fill_new_argv.c \
+				handle.c \
+				init_expand.c \
+				get_var.c \
+				quotes.c \
+				expand_stream_vars.c \
+
 TODELETE=	test.c
 
 UTILS	=	fd.c \
@@ -72,6 +125,10 @@ EXEC	=	exec.c \
 			path.c
 
 SRCS	=	main.c \
+			$(LEXER) \
+			$(PARSER) \
+			$(REDIRECTIONS) \
+			$(EXPANSIONS) \
 			$(EXEC) \
 			$(BUILTIN) \
 			$(SYSTEM) \
@@ -84,7 +141,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/exec:srcs/builtins:srcs/system:srcs/utils
+VPATH	=	includes:srcs:srcs/lexer:srcs/parser:srcs/redirection:srcs/expansion:srcs/exec:srcs/builtins:srcs/system:srcs/utils
 
 # [ RULES ] #
 
