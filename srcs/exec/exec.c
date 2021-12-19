@@ -23,11 +23,11 @@
 
 void	exec(t_node *ast)
 {
-//	if (!expand_node(ast) || !clear_redirections(ast))
-//	{
-//		g_shell->exit_code = FAILURE_ERR; 
-//		return ;
-//	}
+	if (!expand_node(ast) || !clear_redirections(ast))
+	{
+		g_shell->exit_code = FAILURE_ERR; 
+		return ;
+	}
 	if (ast->type == PIPE_NODE)
 	{}//exec_pipe(ast->content);
 	else

@@ -26,7 +26,9 @@ t_bool	create_ast(t_token **tokens, t_node **ast)
 {
 	*ast = NULL;
 	while (*tokens)
+	{
 		if (!parse_tokens(tokens, ast))
 			return (false);
+	}
 	return (true);
 }

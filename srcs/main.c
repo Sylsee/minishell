@@ -58,6 +58,12 @@ static void	minishell(void)
 			else
 			{
 				printf("%s\n", ast->content.left->content.cmd.argv[0]);
+			/*	"a | b"
+
+				ast->type = PIPE_NODE
+						->content.left = node qui contient "a"
+						->content.right = node qui contient "b"
+*/
 				exec(ast);
 			}
 			//print_ast(ast);
@@ -67,7 +73,6 @@ static void	minishell(void)
 			g_shell->exit_code = SYNTAX_ERR;
 		clear_tokens(&tokens);
 		free(s);
-		break;
 	}
 }
 
