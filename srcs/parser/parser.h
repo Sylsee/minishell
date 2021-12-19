@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 15:21:26 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/28 13:00:54 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/03 14:56:17 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void		ast_error(t_token *tokens);
 void		free_ast(t_node **node);
 void		skip_token(t_token **tokens);
 void		print_ast(t_node *ast);
+t_bool		str_is_redirection(char *str);
+t_bool		check_arg(char *arg);
 
 #endif

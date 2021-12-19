@@ -33,6 +33,7 @@ typedef struct s_cmd
 	char	**argv;
 	int		fd_in;
 	int		fd_out;
+	t_bool	has_quotes;
 }			t_cmd;
 
 /*

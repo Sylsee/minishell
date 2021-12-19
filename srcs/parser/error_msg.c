@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:33:06 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/28 13:01:54 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/03 09:35:21 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ const char	*error_msg(int id)
 	const char	*errors[ERROR_MSG_LENGTH] = {
 		"\nminishell: syntax error near unexpected token `newline'\n",
 		"\nminishell: syntax error: unexpected end of file\n",
-		"\nminishell: syntax error near unexpected token`"
+		"\nminishell: syntax error near unexpected token`",
+		"File name too long\n",
+		"No such file or directory\n",
+		"ambiguous redirect\n"
 	};
 
 	return (errors[id]);

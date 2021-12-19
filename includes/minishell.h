@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/28 13:28:49 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/03 09:58:31 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@
 # include "../libft/includes/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include <stdbool.h>
 
 # define NO_ERR 0
 # define SYNTAX_ERR 2
+# define FAILURE_ERR 1
+# define MALLOC_ERR	1
+# define CTRLC_ERR	130
 # define ft_dprintf(fd, ...)  dprintf(fd, ##__VA_ARGS__) 
 
 typedef struct s_shell
@@ -29,6 +33,7 @@ typedef struct s_shell
 	t_area	a;
 	t_area	ast_area;
 	int		exit_code;
+	int		line_count;
 }				t_shell;
 
 /*
@@ -42,6 +47,10 @@ typedef struct s_shell
 **	is the last token.
 **	@var	ERR_TOK		=>	Error token, when a token doesn't respect
 **	the rules related to its type.
+**	@var	ERR_TOO_LONG	=>	Error file, when a name of a file is too long.
+**	@var	ERR_NO_FILE		=>	Error file, when a file doesn't exist.
+**	@var	ERR_REDIRECT	=>	Error redirection, when a redirection is ambiguous
+**	after a expansion.
 **	@var	ERROR_MSG_LENGTH	=>	the enum length.
 */
 
@@ -50,6 +59,9 @@ enum	e_error_msg
 	ERR_EOL,
 	ERR_NEWFILE,
 	ERR_TOK,
+	ERR_TOO_LONG,
+	ERR_NO_FILE,
+	ERR_REDIRECT,
 	ERROR_MSG_LENGTH
 };
 
@@ -72,6 +84,9 @@ typedef short	t_bool;
 
 # include "../srcs/lexer/lexer.h"
 # include "../srcs/parser/parser.h"
+# include "../srcs/exec/exec.h"
+# include "../srcs/redirection/redirection.h"
+# include "../srcs/expansion/expansion.h"
 /*
 ** Error
 */

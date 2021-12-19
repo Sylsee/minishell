@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/11/27 08:38:12 by arguilla         ###   ########.fr        #
+#    Updated: 2021/12/03 19:06:30 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,12 +67,46 @@ PARSER	=	create_ast.c \
 			skip_token.c \
 			print_ast.c \
 
+EXEC	=	exec.c \
+
+					
+REDIRECTIONS	=	clear_redirections.c \
+					open_redirections.c \
+					heredoc_redirection.c \
+					input_redirection.c \
+					output_redirection.c \
+					redirection_error.c \
+					redirections.c \
+					remove_redirections.c \
+					heredoc_control.c \
+					fill_doc.c \
+
+EXPANSIONS	=	expand_node.c \
+				expanser.c \
+				check_var_pos.c \
+				incorrect_syntax_var.c \
+				expand_vars.c \
+				update_argv.c \
+				expand_var.c \
+				utils.c \
+				realloc_argv.c \
+				fill_new_argv.c \
+				handle.c \
+				init_expand.c \
+				get_var.c \
+				quotes.c \
+				expand_stream_vars.c \
+
+
 SRCS	=	main.c \
 			echo.c \
 			env.c \
 			error.c \
 			$(LEXER) \
 			$(PARSER) \
+			$(REDIRECTIONS) \
+			$(EXPANSIONS) \
+			$(EXEC) \
 
 # [ OBJECTS ] #
 
@@ -80,7 +114,7 @@ OBJS	=	$(SRCS:%=$O%.o)
 
 # [ PATH ] #
 
-VPATH	=	includes:srcs:srcs/lexer:srcs/parser
+VPATH	=	includes:srcs:srcs/lexer:srcs/parser:srcs/redirection:srcs/expansion:srcs/exec:
 
 # [ RULES ] #
 

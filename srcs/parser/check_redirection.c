@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:02:55 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/28 12:57:33 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/19 07:45:03 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,23 @@ t_bool	check_redirection(t_token **tokens)
 			ft_dprintf(STDERR_FILENO, "%s", error_msg(ERR_EOL));
 		if (!*tokens || (*tokens)->type != Word_token)
 			return (false);
+	}
+	return (true);
+}
+
+t_bool	str_is_redirection(char *str)
+{
+	return (ft_strcmp("<", str) == 0 || ft_strcmp("<<", str) == 0
+		|| ft_strcmp(">", str) == 0 || ft_strcmp(">>", str) == 0);
+}
+
+t_bool	check_arg(char *arg)
+{
+	if (ft_strlen(arg) > MAX_REDIR_ARG_LENGTH)
+	{
+		ft_dprintf(STDERR_FILENO, "minishell: %s: %s",
+			arg, error_msg(ERR_TOO_LONG));
+		return (false);
 	}
 	return (true);
 }

@@ -28,6 +28,7 @@ t_bool	create_cmd(t_node **node, t_token **tokens)
 	*node = alloc(sizeof(t_node), &g_shell->a);
 	(*node)->content.cmd.fd_in = STDIN_FILENO;
 	(*node)->content.cmd.fd_out = STDOUT_FILENO;
+	(*node)->content.cmd.has_quotes = false;
 	(*node)->type = CMD_NODE;
 	(*node)->content.left = NULL;
 	(*node)->content.right = NULL;

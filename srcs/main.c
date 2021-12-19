@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/11/28 12:54:47 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/03 07:52:00 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ static void	minishell(void)
 	t_node	*ast;
 
 	tokens = NULL;
+	ast = NULL;
 	while (true)
 	{
 		s = readline("$ ");
+		g_shell->line_count++;
 		if (!s)
 			break ;
 		add_history(s);
@@ -54,12 +56,15 @@ static void	minishell(void)
 			if (!create_ast(&tokens, &ast) || tokens)
 				ast_error(tokens);
 			else
-			{}
+			{
+				printf("%s\n", ast->content.left->content.cmd.argv[0]);
+				exec(ast);
+			}
 			//print_ast(ast);
 			free_ast(&ast);
 		}
 		else
-			printf("ferme les parentheses fdp\n");
+			g_shell->exit_code = SYNTAX_ERR;
 		clear_tokens(&tokens);
 		free(s);
 		break;
@@ -76,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_memset(&shell, 0, sizeof(shell));
 	init_area(&shell.a);
 	shell.exit_code = NO_ERR;
+	shell.line_count = 0;
 	g_shell = &shell;
 	init_env(envp);
 //	init_signal();
