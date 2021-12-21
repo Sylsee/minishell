@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 08:29:52 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/28 13:03:58 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 23:08:47 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ static void	print_cmd(t_cmd *cmd)
 	printf("fd_in: %5d\nfd_out: %5d\n", cmd->fd_in, cmd->fd_out);
 	printf("argv:\n");
 	while (cmd->argv[++i])
-		printf("%*s\n",(int) (10 + ft_strlen(cmd->argv[i])), cmd->argv[i]);
+		printf("%*s\n", (int)(10 + ft_strlen(cmd->argv[i])), cmd->argv[i]);
 }
 
 void	print_ast(t_node *ast)
 {
-	static int i = 0;
+	static int	i = 0;
+
 	if (ast)
 	{
 		printf("Couche %d:\n", i);

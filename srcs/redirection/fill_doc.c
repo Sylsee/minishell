@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 20:06:16 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 20:07:31 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:14:36 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*fill_doc(char *s1, char *s2, char *s3)
 	if (!s1[0] && !s2[0])
 		return (ft_strdup(""));
 	nstr = alloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)
-				+ ft_strlen(s3) + 1), &g_ftarea);
+				+ ft_strlen(s3) + 1), NULL);
 	exit_if_equal(nstr, NULL, 1);
 	assign(nstr, s1, &i);
 	assign(nstr, s3, &i);

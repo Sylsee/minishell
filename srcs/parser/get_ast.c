@@ -6,11 +6,19 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 22:54:56 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/19 22:55:06 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/21 23:04:10 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Create an ast with the tokenization method
+**
+**	@param	line	=>	The line returns from user
+**
+**	@return the ast
+*/
 
 t_node	*get_ast(char *line)
 {

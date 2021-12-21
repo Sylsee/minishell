@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:46:45 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/03 14:46:46 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:20:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ bool	redirections(t_cmd *cmd, char **argv)
 		return (input_redirection(cmd, argv));
 	if (ft_strcmp("<<", *argv) == 0)
 		return (heredoc_redirection(cmd, argv));
-	return (output_redirection(cmd, argv));
+	else
+		return (output_redirection(cmd, argv));
 }

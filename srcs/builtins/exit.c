@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 18:31:19 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/09 02:39:28 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:31:49 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ int	run_exit(int argc, char **argv)
 		return (1);
 	}
 	exit(ft_atoi(argv[1]));
+	return (0);
 }

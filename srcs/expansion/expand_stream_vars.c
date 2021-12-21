@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:21:07 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 18:24:51 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:09:16 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **  Expand a variable in a argument from a heredoc file.
 **
-**	@param	arg	=>	the heredoc content.	
+**	@param	arg	=>	the heredoc content.
 **
 **  @return void.
 */

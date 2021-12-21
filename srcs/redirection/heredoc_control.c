@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_control.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/21 13:13:29 by spoliart          #+#    #+#             */
+/*   Updated: 2021/12/21 13:13:30 by spoliart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -10,8 +22,8 @@
 
 static void	ctrl_d_heredoc(char const *delimiter)
 {
-	ft_dprintf(STDERR_FILENO, "minishell: warning: here-document at line %d \
-delimited by end-of-file (wanted `%s')\n",
+	ft_dprintf(STDERR_FILENO, "minishell: warning: here-document at line %d "
+		"delimited by end-of-file (wanted `%s')\n",
 		g_shell->line_count, delimiter);
 }
 

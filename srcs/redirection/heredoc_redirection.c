@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:45:09 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 20:25:47 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:26:26 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	get_heredoc_fd(char *str, bool has_quotes)
 }
 
 /*
-**	Manage the input heredoc redirection
+**	Manage the input of the heredoc redirection
 **
 **	@param	cmd	=>	the cmd structure.
 **	@param	argv	=>	the array with arguments after the heredoc token.
@@ -117,5 +117,5 @@ bool	heredoc_redirection(t_cmd *cmd, char **argv)
 	cmd->fd_in = get_heredoc_fd(*(argv + 1), cmd->has_quotes);
 	if (!cmd->fd_in)
 		return (false);
-	return (1);
+	return (true);
 }

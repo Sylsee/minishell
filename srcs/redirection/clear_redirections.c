@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 08:06:40 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 20:07:45 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 23:10:36 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ bool	clear_redirections(t_node *ast)
 	if (ast->content.right)
 		if (!clear_redirections(ast->content.right))
 			return (false);
-	return (true);	
+	return (true);
 }

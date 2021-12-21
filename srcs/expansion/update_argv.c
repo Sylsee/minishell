@@ -29,7 +29,7 @@ static char	*stralloc(char *str, int name_len, char *var)
 
 	var_len = ft_strlen(var);
 	nstr = alloc(sizeof(char) * (ft_strlen(str) - name_len + var_len),
-			&g_ftarea);
+			NULL);
 	if (!nstr)
 		exit(1);
 	return (nstr);

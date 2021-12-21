@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:26:18 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 18:29:29 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:15:06 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*remove_quote(char *str)
 	dquotes = false;
 	i = 0;
 	j = 0;
-	wquotes = alloc(sizeof(char) * (get_len_wquotes(str) + 1), &g_ftarea);
+	wquotes = alloc(sizeof(char) * (get_len_wquotes(str) + 1), NULL);
 	if (!wquotes)
 		exit(1);
 	ft_bzero(wquotes, get_len_wquotes(str) + 1);

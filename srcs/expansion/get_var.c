@@ -28,7 +28,7 @@ char	*reverse_quotes(char *var_value)
 	if (var_value == NULL)
 		return (NULL);
 	i = -1;
-	str = alloc(sizeof(*str) * (ft_strlen(var_value) + 1), &g_ftarea);
+	str = alloc(sizeof(*str) * (ft_strlen(var_value) + 1), NULL);
 	if (!str)
 		exit (1);
 	while (var_value[++i] != '\0')
@@ -60,7 +60,7 @@ static char	*get_var_name(char *arg)
 	i = -1;
 	while (ft_isalnum(arg[size]) != 0 && arg[size])
 		size++;
-	var_name = alloc(sizeof(char) * (size + 1), &g_ftarea);
+	var_name = alloc(sizeof(char) * (size + 1), NULL);
 	if (!var_name)
 		exit(1);
 	while (ft_isalnum(arg[++i]) && arg[i])
