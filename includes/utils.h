@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:33:50 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/19 22:32:47 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 19:08:09 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ char	*get_path(char *cmd);
 
 /* *** Error *** */
 void	internal_error(char *s, int code);
+
+/* *** dprintf *** */
+int		ft_dprintf(int fd, const char *fmt, ...);
 
 #endif

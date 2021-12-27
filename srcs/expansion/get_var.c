@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 07:25:41 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/27 17:08:51 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/27 20:32:32 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ static char	*get_var_name(char *arg)
 	size = 0;
 	i = -1;
 	arg++;
-	while (ft_isalnum(arg[size]) != 0 && arg[size])
+	while (ft_isalpha(arg[size]) != 0 && arg[size])
 		size++;
-	var_name = alloc(sizeof(char) * (size + 1), NULL);
+	if (size == 0 && ft_isdigit(*arg))
+		size = 1;
+	var_name = alloc(sizeof(char) * (size + 1), &g_ftarea);
 	if (!var_name)
 		exit(1);
-	while (ft_isalnum(arg[++i]) && arg[i])
+	while (ft_isalpha(arg[++i]) && arg[i])
 		var_name[i] = arg[i];
+	if (ft_isdigit(*arg) && size == 1)
+		var_name[i++] = *arg;
 	var_name[i] = '\0';
 	return (var_name);
 }

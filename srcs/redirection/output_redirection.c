@@ -34,7 +34,7 @@ bool	output_redirection(t_cmd *cmd, char **argv)
 	argv++;
 	cmd->fd_out = open(*argv, O_WRONLY | O_CREAT | flag,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (!cmd->fd_out)
+	if (cmd->fd_out < 0)
 		return (redirection_error(*argv));
 	return (true);
 }

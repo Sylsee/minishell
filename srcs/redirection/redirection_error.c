@@ -25,5 +25,5 @@ bool	redirection_error(char *filename)
 	ft_dprintf(STDERR_FILENO, "minishell: %s : %s",
 		filename, error_msg(ERR_NO_FILE));
 	g_shell->exit_code = FAILURE_ERR;
-	return (-1);
+	return (false);
 }
