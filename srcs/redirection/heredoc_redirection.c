@@ -6,20 +6,20 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:45:09 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/21 13:26:26 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:59:33 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Join the last heredoc file with the new line.
-**
-**	@param	doc	=>	the heredoc content.
-**	@param	line	=>	the new line.
-**
-**	@return	void.
-*/
+ **	Join the last heredoc file with the new line.
+ **
+ **	@param	doc	=>	the heredoc content.
+ **	@param	line	=>	the new line.
+ **
+ **	@return	void.
+ */
 
 static void	join(char **doc, char *line)
 {
@@ -41,12 +41,12 @@ static void	join(char **doc, char *line)
 }
 
 /*
-** Create the heredoc content by reading stdin.
-**
-**	@param	delimiter	=>	the heredoc delimiter.
-**
-**	@return	the heredoc content.
-*/
+ ** Create the heredoc content by reading stdin.
+ **
+ **	@param	delimiter	=>	the heredoc delimiter.
+ **
+ **	@return	the heredoc content.
+ */
 
 static char	*heredoc(char *delimiter)
 {
@@ -70,14 +70,14 @@ static char	*heredoc(char *delimiter)
 }
 
 /*
-**	Get the fd of a heredoc file.
-**
-**	@param	str	=>	the heredoc delimiter.
-**	@param	has_quotes	=>	a boolean to say if
-**	the current delimiter contains quotes.
-**
-**	@return	the heredoc fd.
-*/
+ **	Get the fd of a heredoc file.
+ **
+ **	@param	str	=>	the heredoc delimiter.
+ **	@param	has_quotes	=>	a boolean to say if
+ **	the current delimiter contains quotes.
+ **
+ **	@return	the heredoc fd.
+ */
 
 static int	get_heredoc_fd(char *str, bool has_quotes)
 {
@@ -90,7 +90,7 @@ static int	get_heredoc_fd(char *str, bool has_quotes)
 		g_shell->exit_code = CTRLC_ERR;
 		return (-1);
 	}
-	if (!has_quotes && !doc)
+	if (!has_quotes && doc)
 		expand_stream_vars(&doc);
 	if (pipe(fd) == -1)
 		exit(1);
@@ -102,13 +102,13 @@ static int	get_heredoc_fd(char *str, bool has_quotes)
 }
 
 /*
-**	Manage the input of the heredoc redirection
-**
-**	@param	cmd	=>	the cmd structure.
-**	@param	argv	=>	the array with arguments after the heredoc token.
-**
-**	@return	a boolean value.
-*/
+ **	Manage the input of the heredoc redirection
+ **
+ **	@param	cmd	=>	the cmd structure.
+ **	@param	argv	=>	the array with arguments after the heredoc token.
+ **
+ **	@return	a boolean value.
+ */
 
 bool	heredoc_redirection(t_cmd *cmd, char **argv)
 {

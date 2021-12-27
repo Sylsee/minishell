@@ -6,19 +6,19 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 07:25:41 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 18:19:37 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:08:51 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Set a negative value for the quotes characters.
-**
-**	@param	var_value	=>	the content of a variable.
-**
-**	@return	a str with quotes replaced by a character less than 0.
-*/
+ **	Set a negative value for the quotes characters.
+ **
+ **	@param	var_value	=>	the content of a variable.
+ **
+ **	@return	a str with quotes replaced by a character less than 0.
+ */
 
 char	*reverse_quotes(char *var_value)
 {
@@ -28,9 +28,9 @@ char	*reverse_quotes(char *var_value)
 	if (var_value == NULL)
 		return (NULL);
 	i = -1;
-	str = alloc(sizeof(*str) * (ft_strlen(var_value) + 1), NULL);
+	str = alloc(sizeof(*str) * (ft_strlen(var_value) + 1), &g_ftarea);
 	if (!str)
-		exit (1);
+		exit(1);
 	while (var_value[++i] != '\0')
 	{
 		if (var_value[i] == '\'' || var_value[i] == '"')
@@ -43,12 +43,12 @@ char	*reverse_quotes(char *var_value)
 }
 
 /*
-**  Get the name of a variable.
-**
-**  @param  arg =>  the argument contains the variable name.
-**
-**  @return a variable name.
-*/
+ **  Get the name of a variable.
+ **
+ **  @param  arg =>  the argument contains the variable name.
+ **
+ **  @return a variable name.
+ */
 
 static char	*get_var_name(char *arg)
 {
@@ -58,27 +58,28 @@ static char	*get_var_name(char *arg)
 
 	size = 0;
 	i = -1;
+	arg++;
 	while (ft_isalnum(arg[size]) != 0 && arg[size])
 		size++;
 	var_name = alloc(sizeof(char) * (size + 1), NULL);
 	if (!var_name)
 		exit(1);
 	while (ft_isalnum(arg[++i]) && arg[i])
-		var_name[i - 1] = arg[i];
-	var_name[i - 1] = '\0';
+		var_name[i] = arg[i];
+	var_name[i] = '\0';
 	return (var_name);
 }
 
 /*
-**  Fill variables with the name and the content
-**  of a bash variable.
-**
-**  @param  arg =>  the current argument.
-**  @param  var_name    =>  the variable to fill.
-**  @param  var_value   =>  the variable to fill.
-**
-**  @return void.
-*/
+ **  Fill variables with the name and the content
+ **  of a bash variable.
+ **
+ **  @param  arg =>  the current argument.
+ **  @param  var_name    =>  the variable to fill.
+ **  @param  var_value   =>  the variable to fill.
+ **
+ **  @return void.
+ */
 
 void	get_var_infos(char *arg, char **var_name, char **var_value)
 {
@@ -89,7 +90,7 @@ void	get_var_infos(char *arg, char **var_name, char **var_value)
 		return ;
 	}
 	*var_name = get_var_name(arg);
-	*var_value = reverse_quotes("bonjour' a tous");
+	*var_value = reverse_quotes(ft_getenv(*var_name));
 	if (*var_value == NULL)
-		*var_value = "";
+		*var_value = ft_strdup("");
 }

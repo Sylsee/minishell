@@ -67,8 +67,8 @@ void	exec_cmd(t_cmd *cmd)
 {
 	pid_t	pid;
 
-	ft_dup2(STDIN_FILENO, cmd->fd_in);
-	ft_dup2(STDOUT_FILENO, cmd->fd_out);
+	ft_dup2(cmd->fd_in, STDIN_FILENO);
+	ft_dup2(cmd->fd_out, STDOUT_FILENO);
 	if (is_builtin(cmd->argv[0]))
 		run_builtin(cmd);
 	else
@@ -81,6 +81,6 @@ void	exec_cmd(t_cmd *cmd)
 		else
 			parent(pid);
 	}
-	restfd(cmd->fd_in, STDIN_FILENO);
-	restfd(cmd->fd_out, STDOUT_FILENO);
+	restfd(STDIN_FILENO, cmd->fd_in);
+	restfd(STDOUT_FILENO, cmd->fd_out);
 }

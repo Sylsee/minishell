@@ -53,6 +53,8 @@ bool	create_argv_cmd(t_cmd *cmd, t_token **tokens)
 	cmd->argv = NULL;
 	cmd->argv = alloc(sizeof(char *) * (get_argv_size(*tokens) + 1),
 			&g_shell->a);
+	if (!cmd->argv)
+		exit(1);
 	while (++i != get_argv_size(*tokens))
 		cmd->argv[i] = NULL;
 	i = 0;
@@ -62,6 +64,7 @@ bool	create_argv_cmd(t_cmd *cmd, t_token **tokens)
 		if (!check_redirection(tokens))
 			return (false);
 		cmd->argv[i++] = ft_strdup((*tokens)->data);
+		exit_if_equal(cmd->argv[i - 1], NULL, 1);
 		skip_token(tokens);
 	}
 	cmd->argv[i] = NULL;
