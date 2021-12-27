@@ -26,7 +26,7 @@ bool	input_redirection(t_cmd *cmd, char **argv)
 	if (cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);
 	cmd->fd_in = open(argv[1], O_RDONLY);
-	if (!cmd->fd_in)
+	if (cmd->fd_in < 0)
 		return (redirection_error(argv[1]));
 	return (true);
 }
