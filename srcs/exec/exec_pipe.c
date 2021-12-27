@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:23:55 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/05 15:41:44 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:53:42 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	child(t_node *node, int fd[2])
 {
 	close(g_shell->savefd[INPUT]);
 	close(g_shell->savefd[OUTPUT]);
-	restfd(STDOUT_FILENO, fd[OUTPUT]);
+	restfd(fd[OUTPUT], STDOUT_FILENO);
 	close(fd[INPUT]);
 	exec(node);
 	exit(EXIT_SUCCESS);
@@ -39,12 +39,12 @@ static void	child(t_node *node, int fd[2])
 
 static void	parent(t_node *node, int fd[2])
 {
-	restfd(STDIN_FILENO, fd[INPUT]);
+	restfd(fd[INPUT], STDIN_FILENO);
 	close(fd[OUTPUT]);
 	exec(node);
 	wait(NULL);
-	restfd(STDIN_FILENO, g_shell->savefd[INPUT]);
-	restfd(STDOUT_FILENO, g_shell->savefd[OUTPUT]);
+	restfd(g_shell->savefd[INPUT], STDIN_FILENO);
+	restfd(g_shell->savefd[OUTPUT], STDOUT_FILENO);
 }
 
 /*
@@ -59,6 +59,7 @@ void	exec_pipe(t_content *p)
 	int		fd[2];
 	pid_t	pid;
 
+	g_shell->is_multithreaded = true;
 	g_shell->savefd[INPUT] = dup(STDIN_FILENO);
 	g_shell->savefd[OUTPUT] = dup(STDOUT_FILENO);
 	if (pipe(fd) == -1)

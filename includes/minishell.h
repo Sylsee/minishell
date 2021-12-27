@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/19 23:06:59 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:18:21 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_shell
 	int		savefd[2];
 	int		exit_code;
 	int		line_count;
+	bool	is_multithreaded;
 }			t_shell;
 
 /*

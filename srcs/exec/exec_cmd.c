@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:00:00 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 15:58:44 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:42:09 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	@param	cmd	=> The structure that stores the command
 */
 
-static void	child(t_cmd *cmd)
+static void	child(t_cmd *cmd, int fd[2])
 {
 	int		ret;
 	char	*path;
@@ -31,10 +31,12 @@ static void	child(t_cmd *cmd)
 		exit(ret);
 	env = lst_to_array(g_shell->env);
 	if (execve(path, cmd->argv, env) == -1)
-		exit(manage_error(path, cmd->argv[0], strerror(errno), 126));
-	ft_free_tab(env, NULL);
-	free_one(path, NULL);
-	exit(EXIT_SUCCESS);
+		ret = manage_error(path, cmd->argv[0], strerror(errno), 126);
+	else
+		free_one(path, NULL);
+	close(fd[INPUT]);
+	close(fd[OUTPUT]);
+	exit(ret);
 }
 
 /*
@@ -78,9 +80,9 @@ void	exec_cmd(t_cmd *cmd)
 	{
 		pid = fork();
 		if (pid == -1)
-			internal_error("Fork failed", EXIT_FAILURE);
+			internal_error("fork() failed", EXIT_FAILURE);
 		else if (pid == 0)
-			child(cmd);
+			child(cmd, fd);
 		else
 			parent(pid);
 	}

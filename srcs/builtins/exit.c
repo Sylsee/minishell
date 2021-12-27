@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 18:31:19 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/21 19:31:49 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:25:47 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 int	run_exit(int argc, char **argv)
 {
+	if (g_shell->is_multithreaded == true)
+		return (0);
 	if (argc <= 2)
 	{
 		close(g_shell->savefd[INPUT]);
