@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 15:25:35 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:13:06 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:00:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_dup2(int ofd, int fd)
 **	@param	ofd	=>	the old file descriptor
 */
 
-void	restfd(int fd, int ofd)
+void	restfd(int ofd, int fd)
 {
-	if (fd != ofd)
+	if (ofd != fd)
 	{
 		ft_dup2(ofd, fd);
 		close(ofd);

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:00:00 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:45:29 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:58:44 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ static void	parent(pid_t pid)
 
 void	exec_cmd(t_cmd *cmd)
 {
+	int		fd[2];
 	pid_t	pid;
 
-	ft_dup2(STDIN_FILENO, cmd->fd_in);
-	ft_dup2(STDOUT_FILENO, cmd->fd_out);
+	fd[INPUT] = dup(STDIN_FILENO);
+	fd[OUTPUT] = dup(STDOUT_FILENO);
+	ft_dup2(cmd->fd_in, STDIN_FILENO);
+	ft_dup2(cmd->fd_out, STDOUT_FILENO);
 	if (is_builtin(cmd->argv[0]))
 		run_builtin(cmd);
 	else
@@ -81,6 +84,6 @@ void	exec_cmd(t_cmd *cmd)
 		else
 			parent(pid);
 	}
-	restfd(cmd->fd_in, STDIN_FILENO);
-	restfd(cmd->fd_out, STDOUT_FILENO);
+	restfd(fd[INPUT], STDIN_FILENO);
+	restfd(fd[OUTPUT], STDOUT_FILENO);
 }

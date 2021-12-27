@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 05:35:10 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:21:23 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:25:13 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ static void	print_tab(int argc, char **s, bool display_return)
 	if (!s)
 	{
 		if (display_return == true)
-			write(1, "\n", 1);
+			write(STDOUT_FILENO, "\n", 1);
 		return ;
 	}
 	i = 0;
 	while (s[i])
 	{
-		ft_putstr_fd(s[i], 1);
+		ft_putstr_fd(s[i], STDOUT_FILENO);
 		i++;
 		if (s[i])
-			write(1, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (display_return == true)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 }
 
 /*
