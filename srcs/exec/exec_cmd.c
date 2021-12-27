@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 14:00:00 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/06 19:45:29 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:21:43 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	@param	cmd	=> The structure that stores the command
 */
 
-static void	child(t_cmd *cmd)
+static void	child(t_cmd *cmd, int fd[2])
 {
 	int		ret;
 	char	*path;
@@ -31,10 +31,12 @@ static void	child(t_cmd *cmd)
 		exit(ret);
 	env = lst_to_array(g_shell->env);
 	if (execve(path, cmd->argv, env) == -1)
-		exit(manage_error(path, cmd->argv[0], strerror(errno), 126));
-	ft_free_tab(env, NULL);
-	free_one(path, NULL);
-	exit(EXIT_SUCCESS);
+		ret = manage_error(path, cmd->argv[0], strerror(errno), 126);
+	else
+		free_one(path, NULL);
+	close(fd[INPUT]);
+	close(fd[OUTPUT]);
+	exit(ret);
 }
 
 /*
@@ -65,8 +67,11 @@ static void	parent(pid_t pid)
 
 void	exec_cmd(t_cmd *cmd)
 {
+	int		fd[2];
 	pid_t	pid;
 
+	fd[INPUT] = dup(STDIN_FILENO);
+	fd[OUTPUT] = dup(STDOUT_FILENO);
 	ft_dup2(cmd->fd_in, STDIN_FILENO);
 	ft_dup2(cmd->fd_out, STDOUT_FILENO);
 	if (is_builtin(cmd->argv[0]))
@@ -75,12 +80,12 @@ void	exec_cmd(t_cmd *cmd)
 	{
 		pid = fork();
 		if (pid == -1)
-			internal_error("Fork failed", EXIT_FAILURE);
+			internal_error("fork() failed", EXIT_FAILURE);
 		else if (pid == 0)
-			child(cmd);
+			child(cmd, fd);
 		else
 			parent(pid);
 	}
-	restfd(STDIN_FILENO, cmd->fd_in);
-	restfd(STDOUT_FILENO, cmd->fd_out);
+	restfd(fd[INPUT], STDIN_FILENO);
+	restfd(fd[OUTPUT], STDOUT_FILENO);
 }

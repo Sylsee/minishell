@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/21 19:30:22 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:28:37 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	minishell(void)
 	ast = NULL;
 	while (true)
 	{
+		g_shell->is_multithreaded = false;
 		signal_on_input();
 		rl_line = rl_gets();
 		if (!rl_line)
@@ -75,6 +76,7 @@ static void	inline_mode(void)
 	ast = NULL;
 	while (true)
 	{
+		g_shell->is_multithreaded = false;
 		ret = get_next_line(STDIN_FILENO, &line);
 		if (ret == -1)
 			internal_error("get_next_line error", EXIT_FAILURE);
