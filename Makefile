@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/19 23:18:31 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/27 17:24:22 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,8 +96,6 @@ EXPANSIONS	=	expand_node.c \
 				quotes.c \
 				expand_stream_vars.c
 
-TODELETE=	test.c
-
 UTILS	=	fd.c \
 			lst.c \
 			lstdelone.c \
@@ -132,8 +130,7 @@ SRCS	=	main.c \
 			$(EXEC) \
 			$(BUILTIN) \
 			$(SYSTEM) \
-			$(UTILS) \
-			$(TODELETE)
+			$(UTILS)
 
 # [ OBJECTS ] #
 
