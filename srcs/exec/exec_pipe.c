@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:23:55 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 16:53:42 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 23:38:46 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	child(t_node *node, int fd[2])
 	restfd(fd[OUTPUT], STDOUT_FILENO);
 	close(fd[INPUT]);
 	exec(node);
+	close(STDOUT_FILENO);
+	close(STDIN_FILENO);
+	close(STDERR_FILENO);
 	exit(EXIT_SUCCESS);
 }
 
@@ -39,9 +42,12 @@ static void	child(t_node *node, int fd[2])
 
 static void	parent(t_node *node, int fd[2])
 {
+	signal(SIGINT, SIG_IGN);
 	restfd(fd[INPUT], STDIN_FILENO);
 	close(fd[OUTPUT]);
 	exec(node);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	wait(NULL);
 	restfd(g_shell->savefd[INPUT], STDIN_FILENO);
 	restfd(g_shell->savefd[OUTPUT], STDOUT_FILENO);

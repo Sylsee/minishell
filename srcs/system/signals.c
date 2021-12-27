@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 17:49:58 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/03 01:35:14 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:19:19 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	redisplay_prompt(int signum)
 {
 	g_shell->exit_code = 128 + signum;
-	write(1, "\n", 1);
+	write(STDERR_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -24,7 +24,7 @@ static void	redisplay_prompt(int signum)
 static void	interrupt_process(int signum)
 {
 	g_shell->exit_code = 128 + signum;
-	write(1, "\n", 1);
+	write(STERR_FILENO, "\n", 1);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:00:28 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 22:55:17 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:12:42 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ static int	check_format_export(char *var)
 			return (-1);
 		return (1);
 	}
-	return (2);
+	else if (var[i] == '=')
+		return (2);
+	return (-1);
 }
 
 /*
