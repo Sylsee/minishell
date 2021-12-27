@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:00:28 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 22:43:35 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 22:55:17 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,25 @@ static int	export_print_env(void)
 
 static int	check_format_export(char *var)
 {
-	if (ft_isdigit(*var))
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(var[i]))
 		return (-1);
-	while (*var && *var != '=' && ft_strncmp(var, "+=", 2) != 0)
+	while (var[i] && var[i] != '=' && ft_strncmp(&var[i], "+=", 2) != 0)
 	{
-		if (ft_isalnum(*var) == 0 && *var != '_')
+		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
 			return (-1);
-		var++;
+		i++;
 	}
-	if (*var && *(var + 1) && *var == '+' && *(var + 1) == '=')
+	if (i == 0 && var[i] == '=')
+		return (-1);
+	if (var[i] && var[i + 1] && var[i] == '+' && var[i + 1] == '=')
+	{
+		if (i == 0)
+			return (-1);
 		return (1);
+	}
 	return (2);
 }
 
