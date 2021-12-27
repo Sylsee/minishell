@@ -31,8 +31,8 @@ void	expand_stream_vars(char **arg)
 	{
 		if ((*arg)[i] == '$')
 		{
-			if ((*arg)[i] == '\0' || (ft_isalnum((*arg)[i + 1])
-				&& (*arg)[i + 1] != '_'))
+			if ((*arg)[i] == '\0' || (ft_isalnum((*arg)[i + 1]) == 0
+				&& (*arg)[i + 1] != '?'))
 				*arg = update_argv(arg, 0, i++, "$");
 			else
 			{
