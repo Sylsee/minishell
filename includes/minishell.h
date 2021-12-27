@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 17:29:16 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:57:40 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdarg.h>
 # include "ast.h"
 # include "exec.h"
 # include "builtin.h"
@@ -34,7 +35,6 @@
 # define MALLOC_ERR	1
 # define CTRLC_ERR	130
 
-# define ft_dprintf(X, str, ...) dprintf(X, str, __VA_ARGS__)
 
 /*
 **	Main structure

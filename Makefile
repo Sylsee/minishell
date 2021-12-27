@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/27 17:24:22 by spoliart         ###   ########.fr        #
+#    Updated: 2021/12/27 19:05:39 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,8 @@ UTILS	=	fd.c \
 			error.c \
 			getenv.c \
 			set_env.c \
-			set_env2.c
+			set_env2.c \
+			ft_dprintf.c
 
 SYSTEM	=	signals.c \
 			init_env.c
