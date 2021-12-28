@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 15:45:22 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:31:22 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:20:31 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*get_special_path(char *path)
 		path = ft_getenv("HOME");
 		if (path == NULL)
 		{
-			ft_putstr_fd("minishell: cd: HOME not set", STDERR_FILENO);
+			ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
 			return (NULL);
 		}
 	}
@@ -54,7 +54,7 @@ static char	*get_special_path(char *path)
 		path = ft_getenv("OLDPWD");
 		if (path == NULL)
 		{
-			ft_putstr_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
+			ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
 			return (NULL);
 		}
 		ft_putendl_fd(path, STDOUT_FILENO);
