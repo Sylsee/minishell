@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 15:45:22 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/28 15:20:31 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:27:00 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	run_cd(int argc, char **argv)
 
 	if (argc > 2)
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
+		ft_putendl_fd("minishell: cd: too many arguments", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	oldpwd = ft_getenv("PWD");
