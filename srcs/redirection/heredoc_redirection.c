@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:45:09 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/29 00:42:12 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/30 19:04:09 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,6 @@ static void	join(char **doc, char *line)
 	free(line);
 }
 
-static bool	catch_signal(char *doc, char *line)
-{
-	if (g_shell->heredoc_signal)
-	{
-		g_shell->heredoc_signal = false;
-		if (line)
-			free(line);
-		if (doc)
-			free_one(doc, NULL);
-		return (true);
-	}
-	return (false);
-}
-
 /*
  ** Create the heredoc content by reading stdin.
  **
@@ -76,7 +62,6 @@ static char	*heredoc(char *delimiter)
 			return (NULL);
 		if (heredoc_control(delimiter, line))
 			break ;
-		//ft_putchar_fd('\n', STDERR_FILENO);
 		join(&doc, line);
 	}
 	if (line)
@@ -94,23 +79,6 @@ static char	*heredoc(char *delimiter)
  **
  **	@return	the heredoc fd.
  */
-
-static void	sigint_handler(int sig)
-{
-	g_shell->heredoc_signal = true;
-	g_shell->signum = sig;
-	rl_done = 1;
-}
-
-static int	event_hook(void)
-{
-	if (g_shell->heredoc_signal)
-	{
-		rl_replace_line("\1", 1);
-		rl_done = 1;
-	}
-	return (0);
-}
 
 static int	get_heredoc_fd(char *str, bool has_quotes)
 {

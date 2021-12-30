@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/27 19:05:39 by arguilla         ###   ########.fr        #
+#    Updated: 2021/12/30 18:50:58 by arguilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ REDIRECTIONS	=	clear_redirections.c \
 					redirections.c \
 					remove_redirections.c \
 					heredoc_control.c \
+					heredoc_signal.c \
 					fill_doc.c
 
 EXPANSIONS	=	expand_node.c \

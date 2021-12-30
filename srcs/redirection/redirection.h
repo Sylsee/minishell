@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 07:56:17 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 20:08:19 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/30 18:57:15 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ bool	redirections(t_cmd *cmd, char **argv);
 bool	heredoc_control(char *delimiter, char *line);
 void	remove_redirections(char **argv);
 char	*fill_doc(char *s1, char *s2, char *s3);
+bool	catch_signal(char *doc, char *line);
+void	sigint_handler(int sig);
+int		event_hook(void);
 
 #endif
