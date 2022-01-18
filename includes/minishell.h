@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 18:57:40 by arguilla         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:46:37 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,18 @@
 # include "../libft/includes/libft.h"
 # include "utils.h"
 # include "system.h"
+# include "test.h"
+# include "../srcs/lexer/lexer.h"
+# include "../srcs/parser/parser.h"
+# include "../srcs/exec/exec.h"
+# include "../srcs/redirection/redirection.h"
+# include "../srcs/expansion/expansion.h"
 
 # define NO_ERR 0
 # define SYNTAX_ERR 2
 # define FAILURE_ERR 1
 # define MALLOC_ERR	1
 # define CTRLC_ERR	130
-
 
 /*
 **	Main structure
@@ -86,12 +91,5 @@ enum	e_error_msg
 */
 
 extern t_shell	*g_shell;
-
-# include "test.h"
-# include "../srcs/lexer/lexer.h"
-# include "../srcs/parser/parser.h"
-# include "../srcs/exec/exec.h"
-# include "../srcs/redirection/redirection.h"
-# include "../srcs/expansion/expansion.h"
 
 #endif

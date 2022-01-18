@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:45:09 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/27 16:59:33 by arguilla         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:49:28 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static char	*heredoc(char *delimiter)
 	while (true)
 	{
 		line = readline("> ");
-		//if (catch_sigint(doc, line))
-		//	return (NULL);
 		if (heredoc_control(delimiter, line))
 			break ;
 		join(&doc, line);
