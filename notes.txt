@@ -1,4 +1,0 @@
-djdjdjd | | 
-
-echo $E $E | cat -e
-echo $T1T

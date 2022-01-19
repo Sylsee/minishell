@@ -35,7 +35,6 @@
 # define MALLOC_ERR	1
 # define CTRLC_ERR	130
 
-
 /*
 **	Main structure
 */

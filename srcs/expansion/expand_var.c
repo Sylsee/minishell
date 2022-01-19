@@ -6,7 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 07:24:58 by arguilla          #+#    #+#             */
-/*   Updated: 2021/12/19 07:32:24 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/30 22:55:52 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,40 @@ bool	exit_and_free_var(char *var_name, char *var_value, bool code)
 	if (var_value)
 		free_one(var_value, NULL);
 	return (code);
+}
+
+/*
+ **	Remove a argument from the argv array.
+ **
+ **	@param	cmd	=>	the command structure.
+ **	@param	i	=>	the id to the argument to delete.
+ **	@param	j	=>	the cursor of characters in the
+ **	current argument.
+ **
+ **	@return	void.
+ */
+
+static void	remove_arg(t_cmd *cmd, int i, int *j)
+{
+	char	*tmp;
+
+	tmp = cmd->argv[i];
+	*j = 0;
+	while (cmd->argv[i])
+	{
+		cmd->argv[i] = cmd->argv[i + 1];
+		i++;
+	}
+	free_one(tmp, NULL);
+}
+
+static bool	check_pos(char **argv, int i)
+{
+	if (i == 0)
+		return (true);
+	if (str_is_redirection(argv[i - 1]))
+		return (false);
+	return (true);
 }
 
 /*
@@ -55,9 +89,15 @@ bool	expand_var(t_cmd *cmd, int i, int *j, bool dquotes)
 	}
 	else
 	{
-		cmd->argv[i] = update_argv(&cmd->argv[i],
-				ft_strlen(var_name), *j, var_value);
-		*j += ft_strlen(var_value);
+		if (check_pos(cmd->argv, i) && var_value[0] == '\0'
+			&& ft_strequ(&cmd->argv[i][1], var_name) == 1 && *j == 0)
+			remove_arg(cmd, i, j);
+		else
+		{
+			cmd->argv[i] = update_argv(&cmd->argv[i],
+					ft_strlen(var_name), *j, var_value);
+			*j += ft_strlen(var_value);
+		}
 	}
 	return (exit_and_free_var(var_name, var_value, true));
 }
