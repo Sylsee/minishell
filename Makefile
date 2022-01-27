@@ -28,7 +28,7 @@ _YELLOW	=	\e[33m
 # [ COMPILATION VARIABLES ]#
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
 LDFLAGS	=	-lreadline -Llibft -lft
 
 # [ VALGRIND VARIABLES ] #

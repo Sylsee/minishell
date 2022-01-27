@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:14:46 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:17:44 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 22:14:57 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	check_name(char *content, char *name)
 /*
 **	Check if name is an environment variable
 **
-**	@param	name	=>	The name of the variable to check
+**	@param	content	=>	The name of the variable to check
 **
 **	@return true if there is already an environment variable with this name,
 **	else false
@@ -59,7 +59,6 @@ static bool	in_env(char *content)
 /*
 **	Modify environment variable content
 **
-**	@param	name	=>	The name of the environment variable
 **	@param	content	=>	The new content of the environment variable
 */
 
@@ -89,7 +88,6 @@ static void	modify_content(char *content)
 /*
 **	Set environment variable either by changing his content or by creating one
 **
-**	@param	name	=>	The name of the environment variable
 **	@param	content	=>	The content to set of the environment variable
 */
 

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:04:51 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 19:16:49 by arguilla         ###   ########.fr       */
+/*   Updated: 2021/12/27 23:06:32 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	main(int argc, char **argv, char **envp)
 	shell.line_count = 0;
 	g_shell = &shell;
 	init_env(envp);
+	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO) == 0)
 		inline_mode();
 	else

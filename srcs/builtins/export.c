@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:00:28 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/10 17:31:35 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:12:42 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,63 @@ static int	export_print_env(void)
 **	@return true if the format is correct, else false
 */
 
-static bool	check_format_export(char *var)
+static int	check_format_export(char *var)
 {
-	if (ft_isdigit(*var))
-		return (false);
-	while (*var && *var != '=')
+	int	i;
+
+	i = 0;
+	if (ft_isdigit(var[i]))
+		return (-1);
+	while (var[i] && var[i] != '=' && ft_strncmp(&var[i], "+=", 2) != 0)
 	{
-		if (ft_isalnum(*var) == 0 && *var != '_')
-			return (false);
-		var++;
+		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
+			return (-1);
+		i++;
 	}
-	return (true);
+	if (i == 0 && var[i] == '=')
+		return (-1);
+	if (var[i] && var[i + 1] && var[i] == '+' && var[i + 1] == '=')
+	{
+		if (i == 0)
+			return (-1);
+		return (1);
+	}
+	else if (var[i] == '=')
+		return (2);
+	return (-1);
+}
+
+/*
+**	Add to environment variable a variabel with old and new content concatenated
+**
+**	@param	var	=>	The string contains name and content to add
+*/
+
+void	add_to_env(char *var)
+{
+	int		len;
+	char	*name;
+	char	*var_content;
+	char	*env_content;
+
+	len = ft_strchr(var, '+') - var;
+	name = ft_strndup(var, len);
+	if (name == NULL)
+		internal_error("unable to allocate memory", EXIT_FAILURE);
+	var_content = ft_strdup(&var[len + 2]);
+	if (var_content == NULL)
+		internal_error("unable to allocate memory", EXIT_FAILURE);
+	env_content = ft_getenv(name);
+	if (env_content == NULL)
+		env_content = ft_strdup(var_content);
+	else
+		env_content = ft_strjoin(env_content, var_content);
+	if (env_content == NULL)
+		internal_error("unable to allocate memory", EXIT_FAILURE);
+	free_one(var_content, NULL);
+	set_env2(name, env_content);
+	free_one(env_content, NULL);
+	free_one(name, NULL);
 }
 
 /*
@@ -61,6 +107,7 @@ int	run_export(int argc, char **argv)
 {
 	int	i;
 	int	ret;
+	int	format;
 
 	if (argc == 1)
 		return (export_print_env());
@@ -68,13 +115,16 @@ int	run_export(int argc, char **argv)
 	ret = 0;
 	while (argv[++i])
 	{
-		if (check_format_export(argv[i]) == false)
+		format = check_format_export(argv[i]);
+		if (format == -1)
 		{
 			ft_dprintf(STDERR_FILENO, "minishell: export: `%s': not a valid "
 				"identifier\n", argv[i]);
 			ret = 1;
 		}
-		else if (ft_strchr(argv[i], '='))
+		else if (format == 1)
+			add_to_env(argv[i]);
+		else
 			set_env(argv[i]);
 	}
 	return (ret);
