@@ -26,6 +26,8 @@ bool	create_cmd(t_node **node, t_token **tokens)
 	if ((*tokens)->type != Word_token && !is_redirection((*tokens)->type))
 		return (false);
 	*node = alloc(sizeof(t_node), &g_shell->a);
+	if (!(*node))
+		exit(1);
 	(*node)->content.cmd.fd_in = STDIN_FILENO;
 	(*node)->content.cmd.fd_out = STDOUT_FILENO;
 	(*node)->content.cmd.has_quotes = false;
