@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 15:30:46 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/27 17:21:16 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:11:15 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 void	exec(t_node *ast)
 {
 	if (expand_node(ast) == 0 || clear_redirections(ast) == 0)
-		g_shell->exit_code = FAILURE_ERR;
+	{
+		if (g_shell->exit_code != CTRLC_ERR)
+			g_shell->exit_code = FAILURE_ERR;
+	}
 	else if (ast->type == CMD_NODE)
 	{
 		if (ast->content.cmd.argv[0] == NULL

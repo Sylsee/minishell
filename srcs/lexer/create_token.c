@@ -26,6 +26,8 @@ t_token	*create_token(char	*data, enum e_token_type type)
 	t_token	*token;
 
 	token = alloc(sizeof(*token), &g_shell->a);
+	if (!token)
+		exit(1);
 	token->data = data;
 	token->type = type;
 	token->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 03:06:11 by spoliart          #+#    #+#             */
-/*   Updated: 2022/01/18 16:46:37 by spoliart         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:48:16 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 typedef struct s_shell
 {
 	t_area	a;
-	t_area	ast_area;
 	t_lst	*env;
 	int		signum;
+	int		heredoc_signal;
 	int		savefd[2];
 	int		exit_code;
 	int		line_count;

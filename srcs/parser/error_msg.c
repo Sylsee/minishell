@@ -23,9 +23,9 @@
 const char	*error_msg(int id)
 {
 	const char	*errors[ERROR_MSG_LENGTH] = {
-		"\nminishell: syntax error near unexpected token `newline'\n",
-		"\nminishell: syntax error: unexpected end of file\n",
-		"\nminishell: syntax error near unexpected token`",
+		"minishell: syntax error near unexpected token `newline'\n",
+		"minishell: syntax error: unexpected end of file\n",
+		"minishell: syntax error near unexpected token`",
 		"File name too long\n",
 		"No such file or directory\n",
 		"ambiguous redirect\n"

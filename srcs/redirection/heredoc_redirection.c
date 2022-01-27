@@ -6,6 +6,7 @@
 /*   By: arguilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 14:45:09 by arguilla          #+#    #+#             */
+/*   Updated: 2021/12/30 19:04:09 by arguilla         ###   ########.fr       */
 /*   Updated: 2022/01/18 16:49:28 by spoliart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -56,7 +57,10 @@ static char	*heredoc(char *delimiter)
 	doc = NULL;
 	while (true)
 	{
+		g_shell->heredoc_signal = false;
 		line = readline("> ");
+		if (catch_signal(doc, line))
+			return (NULL);
 		if (heredoc_control(delimiter, line))
 			break ;
 		join(&doc, line);
@@ -82,7 +86,10 @@ static int	get_heredoc_fd(char *str, bool has_quotes)
 	char	*doc;
 	int		fd[2];
 
+	signal(SIGINT, &sigint_handler);
+	rl_event_hook = &event_hook;
 	doc = heredoc(str);
+	rl_event_hook = NULL;
 	if (!doc)
 	{
 		g_shell->exit_code = CTRLC_ERR;
@@ -95,7 +102,8 @@ static int	get_heredoc_fd(char *str, bool has_quotes)
 	if (doc)
 		ft_putstr_fd(doc, fd[1]);
 	close(fd[1]);
-	free_one(doc, NULL);
+	if (doc)
+		free_one(doc, NULL);
 	return (fd[0]);
 }
 
@@ -113,7 +121,7 @@ bool	heredoc_redirection(t_cmd *cmd, char **argv)
 	if (cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);
 	cmd->fd_in = get_heredoc_fd(*(argv + 1), cmd->has_quotes);
-	if (!cmd->fd_in)
+	if (cmd->fd_in < 0)
 		return (false);
 	return (true);
 }

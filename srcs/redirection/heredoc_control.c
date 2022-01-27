@@ -6,7 +6,7 @@
 /*   By: spoliart <spoliart@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:13:29 by spoliart          #+#    #+#             */
-/*   Updated: 2021/12/21 13:13:30 by spoliart         ###   ########.fr       */
+/*   Updated: 2021/12/27 23:00:16 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,12 @@ bool	heredoc_control(char *delimiter, char *line)
 {
 	if (!line && ft_strcmp(delimiter, "") == 0)
 		return (true);
-	else if (line)
+	else if (!line)
 	{
-		if (line[0] == EOF)
-		{
-			ctrl_d_heredoc(delimiter);
-			return (true);
-		}
-		if (ft_strcmp(line, delimiter) == 0)
-			return (true);
-		return (false);
+		ctrl_d_heredoc(delimiter);
+		return (true);
 	}
+	else if (line && ft_strcmp(line, delimiter) == 0)
+		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: arguilla <arguilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:57:32 by arguilla          #+#    #+#             */
-/*   Updated: 2021/11/26 17:53:54 by arguilla         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:42:52 by arguilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_node	*create_pipe(t_node **node, t_node **ast)
 {
 	*node = NULL;
 	*node = alloc(sizeof(t_node), &g_shell->a);
+	if (!(*node))
+		exit(1);
 	(*node)->type = PIPE_NODE;
 	(*node)->content.left = *ast;
 	(*node)->content.right = NULL;
