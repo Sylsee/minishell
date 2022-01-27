@@ -6,7 +6,7 @@
 #    By: spoliart <sylvio.poliart@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/13 19:04:24 by spoliart          #+#    #+#              #
-#    Updated: 2021/12/30 18:50:58 by arguilla         ###   ########.fr        #
+#    Updated: 2022/01/27 23:25:21 by spoliart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,7 +136,7 @@ SRCS	=	main.c \
 
 # [ OBJECTS ] #
 
-OBJS	=	$(SRCS:%=$O%.o)
+OBJS	=	$(SRCS:%.c=$O%.o)
 
 # [ PATH ] #
 
@@ -155,7 +155,7 @@ $(NAME):	$(OBJS)
 $O:
 			@mkdir -p $@
 
-$O%.o:		%	| $O
+$O%.o:		%.c	| $O
 			@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
 			@$(CC) $(CFLAGS) $I -c $< -o $@
 
