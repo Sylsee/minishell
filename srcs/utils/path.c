@@ -40,7 +40,7 @@ static char	*get_absolute(char *cmd)
 	i = -1;
 	tmp = NULL;
 	cmd = ft_strjoin("/", cmd);
-	env = ft_split(getenv("PATH"), ":");
+	env = ft_split(ft_getenv("PATH"), ":");
 	while (env[++i])
 	{
 		path = ft_strjoin(env[i], cmd);
