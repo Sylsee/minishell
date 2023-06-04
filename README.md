@@ -53,7 +53,7 @@ MiniShell is a simplified shell that imitates the behavior of a Bash shell. It c
 
 ## License
 
-MiniShell is licensed under the [LICENSE](LICENSE).
+MiniShell is [MIT licensed](LICENSE).
 
 ## Contact
 
